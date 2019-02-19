@@ -32,6 +32,7 @@
                       google.charts.setOnLoadCallback(drawChart2);
                       google.charts.setOnLoadCallback(drawChart3);
                       google.charts.setOnLoadCallback(drawChart4);
+                      google.charts.setOnLoadCallback(drawChart5);
 
                       function drawChart1() {
                         var data = new google.visualization.DataTable();
@@ -51,7 +52,7 @@
                             width: 300,
                             height: 300,
                             legend: 'none',
-                            colors: ['orange'],
+                            colors: ['#af2222'],
                             backgroundColor: '#EEEEEE'
                         };
                         chart.draw(data, options);
@@ -74,7 +75,7 @@
                             width: 300,
                             height: 300,
                             legend: 'none',
-                            colors: ['orange'],
+                            colors: ['af2222'],
                             backgroundColor: '#EEEEEE'
                         };
                         chart.draw(data, options);
@@ -97,7 +98,7 @@
                             width: 300,
                             height: 300,
                             legend: 'none',
-                            colors: ['orange'],
+                            colors: ['#af2222'],
                             backgroundColor: '#EEEEEE'
                         };
                         chart.draw(data, options);
@@ -120,11 +121,37 @@
                             width: 300,
                             height: 300,
                             legend: 'none',
-                            colors: ['orange'],
+                            colors: ['af2222'],
                             backgroundColor: '#EEEEEE'
                         };
                         chart.draw(data, options);
                       }
+                      
+                      
+                      function drawChart5() {
+                        var data = google.visualization.arrayToDataTable([
+                          ['Year', 'Sales'],
+                          ['2004',  1000],
+                          ['2005',  1170],
+                          ['2006',  660],
+                          ['2007',  1030]
+                        ]);
+
+                        var options = {
+                           width: 300,
+                           height: 300,
+                           legend: 'none',
+                           colors: ['af2222'],
+                           backgroundColor: '#EEEEEE',
+                           curveType: 'function',
+                        };
+
+                        var chart = new google.visualization.LineChart(document.getElementById('stat5'));
+
+                        chart.draw(data, options);
+                      }
+
+                      
                     </script>
                     <form class="form" >
                         <div class="ui-field-contain">
@@ -159,7 +186,13 @@
                             <div class="graphTitre">Vitesse Moyenne</div>
                             <div id="stat4"></div>
                         </div>
-                    </div>
+                        <div class="graph">
+                            <div class="graphTitre">Consommation annuelle</div>
+                            <div id="stat5"></div>
+                        </div>
+                    </div>              
+                    <br>
+                    <br>
                 </center>
             </div>
                 <%@include file="/includes/footer.jspf"%>
