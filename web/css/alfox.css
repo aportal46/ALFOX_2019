@@ -8,6 +8,74 @@
     left: 35px;
 }
 
+#btnDeconnection{
+    position: absolute;
+    right: 1vw;
+    top: -3px;
+}
+
+#btnDeconnection img {
+    display: flex;
+}
+
+#btnDeconnection:hover #white {
+    display: none;
+}
+
+#btnDeconnection #black {
+    display: none;
+}
+
+#btnDeconnection:hover #black {
+    display: block;
+}
+
+/*btnDeco page info*/
+
+#btnDeconnectionInfos{
+    position: absolute;
+    right: 10vw;
+    top: -3px;
+}
+
+#btnDeconnectionInfos img {
+    display: flex;
+}
+
+#btnDeconnectionInfos:hover #white {
+    display: none;
+}
+
+#btnDeconnectionInfos #black {
+    display: none;
+}
+
+#btnDeconnectionInfos:hover #black {
+    display: block;
+}
+/*btn deco pour localisation*/
+
+#btnDeconnectionLocalisation{
+    position: absolute;
+    right: 3vw;
+    top: -3px;
+}
+
+#btnDeconnectionLocalisation img {
+    display: flex;
+}
+
+#btnDeconnectionLocalisation:hover #white {
+    display: none;
+}
+
+#btnDeconnectionLocalisation #black {
+    display: none;
+}
+
+#btnDeconnectionLocalisation:hover #black {
+    display: block;
+}
 /* Changement de mode de la page infos */
 .mode{
     position: fixed;
@@ -39,7 +107,6 @@
     color: #3a5199 !important;
     font-weight: bold;
 }
-
 /* la saisie ne prend que 60% de l'écran en largeur */
 #formLogin {
     padding: 0px 20% 0px 20% !important;
@@ -139,4 +206,20 @@
 
 .ok{
     top: 22px;
+}
+
+.tablist-left {
+    width: 25vw;
+    display: inline-block;
+}
+.tablist-content {
+    width: 60%;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 0;
+}
+.th-groups th {
+    background-color: rgba(58,81,153,0.3);
+    border-right: 1px solid #fff;
+    text-align: center;
 }

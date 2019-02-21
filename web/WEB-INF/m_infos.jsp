@@ -27,7 +27,19 @@
         <div data-role="page" id="page1">
             <div class="header" data-role="header" data-id="main-header" data-tap-toggle="false" 
                  data-position="fixed">
-                <h1><img id="logoHeader" src="images/alcisLogo.png"/>Infos</h1>
+                  <h1>
+                    <img id="logoHeader" src="images/alcisLogo.png"/>
+                    Infos  
+                    
+                    <form id="btnDeconnectionInfos" method="post" action="alfoxControl.jsp">
+                        <input name="action" id="logout" type="hidden" value="logout"/>
+                        <button type="submit" id="submitOK" name="submitOK">
+                            <img id="white" src="css/themes/images/icons-png/power-white.png" >
+                            <img id="black" src="css/themes/images/icons-png/power-black.png" >
+                        </button>
+                    </form>
+                    
+                </h1>
                 <p class="mode" >
                 <% 
                     ArrayList<String> immatriculations = Vehicule.getImmatriculations(con);

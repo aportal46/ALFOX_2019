@@ -87,7 +87,7 @@ label.ui-btn {
 -----------------------------------------------------------------------------------------------------------*/
 /* Class ui-btn-corner-all deprecated in 1.4 */
 .ui-corner-all {
-	-webkit-border-radius: .6em /*{global-radii-blocks}*/;
+	-webkit-border-radius: .4em /*{global-radii-blocks}*/;
 	border-radius: .6em /*{global-radii-blocks}*/;
 }
 /* Buttons */
@@ -579,4 +579,12 @@ button[disabled],
 .ui-noboxshadow .ui-focus {
 	outline-width: 1px;
 	outline-style: auto;
+}
+
+.ui-table{
+    border: solid;
+    border-collapse: collapse;
+    padding: 0;
+    width: 100%;
+    right: 0;
 }

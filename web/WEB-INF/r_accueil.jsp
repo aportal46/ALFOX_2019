@@ -28,7 +28,19 @@
         <div data-role="page" id="page1">
             <div class="header" data-role="header" data-id="main-header" data-tap-toggle="false" 
                  data-theme="a" data-position="fixed" data-fullscreen="true">
-                <h1><img id="logoHeader" src="images/alcisLogo.png"/>Accueil</h1>
+                <h1>
+                    <img id="logoHeader" src="images/alcisLogo.png"/>
+                    Accueil  
+                    
+                    <form id="btnDeconnection" method="post" action="alfoxControl.jsp">
+                        <input name="action" id="logout" type="hidden" value="logout"/>
+                        <button type="submit" id="submitOK" name="submitOK">
+                            <img id="white" src="css/themes/images/icons-png/power-white.png" >
+                            <img id="black" src="css/themes/images/icons-png/power-black.png" >
+                        </button>
+                    </form>
+                    
+                </h1>
             </div>
             
             <div role="main" class="ui-content">
@@ -98,10 +110,7 @@
                         </div>
                     </div>
                     <br/><br/><br/><br/><br/>
-                    <form id="formLogin" method="post" action="alfoxControl.jsp">
-                        <input name="action" id="logout" type="hidden" value="logout"/><br/>
-                        <button type="submit" id="submitOK" name="submitOK">Déconnexion</button>
-                    </form>
+                    
                     <p class="mini">V0.1 - Mars 2018<br/>Développement : BTS SNIR Lycée V.Hugo Colomiers</p>
                     <br/><br/><br/>
                 </center>
