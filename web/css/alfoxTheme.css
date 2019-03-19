@@ -66,7 +66,7 @@ div.ui-controlgroup-label {
 }
 .table-stripe tbody tr:nth-child(odd) td,
 .table-stripe tbody tr:nth-child(odd) th {
-	background-color: #3a5199; /* non-RGBA fallback  */
+	background-color: #e76215 ; /* non-RGBA fallback  */
 	background-color: rgba(0,0,0,.04);
 }
 /* Buttons
@@ -224,7 +224,7 @@ html .ui-alt-icon .ui-radio-off:after {
 html .ui-bar-a .ui-bar-inherit,
 html .ui-body-a .ui-bar-inherit,
 html body .ui-group-theme-a .ui-bar-inherit {
-	background-color: #3a5199 /*{a-bar-background-color}*/;
+	background-color: #000 /*{a-bar-background-color}*/;
 	border-color: #271e04 /*{a-bar-border}*/;
 	color: white/*{a-bar-color}*/;
 	text-shadow: 0 /*{a-bar-shadow-x}*/ 0px /*{a-bar-shadow-y}*/ 0 /*{a-bar-shadow-radius}*/ #3d3724 /*{a-bar-shadow-color}*/;
@@ -271,7 +271,7 @@ html body .ui-group-theme-a a {
 html .ui-bar-a a:visited,
 html .ui-body-a a:visited,
 html body .ui-group-theme-a a:visited {
-    color: #3388cc /*{a-link-visited}*/;
+    color: #000 /*{a-link-visited}*/;
 }
 .ui-page-theme-a a:hover,
 html .ui-bar-a a:hover,
@@ -297,7 +297,7 @@ html .ui-bar-a .ui-btn:visited,
 html .ui-body-a .ui-btn:visited,
 html body .ui-group-theme-a .ui-btn:visited,
 html head + body .ui-btn.ui-btn-a:visited {
-	background-color: #3a5199e6 /*{a-bup-background-color}*/;
+	background-color: #e76215  /*{a-bup-background-color}*/;
 	border-color: #473b1f /*{a-bup-border}*/;
 	color: #ffff /*{a-bup-color}*/;
 	text-shadow: 0 /*{a-bup-shadow-x}*/ 0px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #bdbdbc /*{a-bup-shadow-color}*/;
@@ -386,7 +386,7 @@ html head + body .ui-body-a.ui-focus {
 html .ui-bar-b .ui-bar-inherit,
 html .ui-body-b .ui-bar-inherit,
 html body .ui-group-theme-b .ui-bar-inherit {
-	background-color: #1c1603 /*{b-bar-background-color}*/;
+	background-color: #000 /*{b-bar-background-color}*/;
 	border-color: #271e04 /*{b-bar-border}*/;
 	color: #f1eee4 /*{b-bar-color}*/;
 	text-shadow: 0 /*{b-bar-shadow-x}*/ 0px /*{b-bar-shadow-y}*/ 0 /*{b-bar-shadow-radius}*/ #bdbdbc /*{b-bar-shadow-color}*/;
@@ -433,7 +433,7 @@ html body .ui-group-theme-b a {
 html .ui-bar-b a:visited,
 html .ui-body-b a:visited,
 html body .ui-group-theme-b a:visited {
-    color: #3388cc /*{b-link-visited}*/;
+    color: #000 /*{b-link-visited}*/;
 }
 .ui-page-theme-b a:hover,
 html .ui-bar-b a:hover,
@@ -459,7 +459,7 @@ html .ui-bar-b .ui-btn:visited,
 html .ui-body-b .ui-btn:visited,
 html body .ui-group-theme-b .ui-btn:visited,
 html head + body .ui-btn.ui-btn-b:visited {
-	background-color: #E8AE27 /*{b-bup-background-color}*/;
+	background-color: #000 /*{b-bup-background-color}*/;
 	border-color: #473b1f /*{b-bup-border}*/;
 	color: #3d3724 /*{b-bup-color}*/;
 	text-shadow: 0 /*{b-bup-shadow-x}*/ 1px /*{b-bup-shadow-y}*/ 0 /*{b-bup-shadow-radius}*/ #bdbdbc /*{b-bup-shadow-color}*/;
@@ -481,7 +481,7 @@ html .ui-bar-b .ui-btn:active,
 html .ui-body-b .ui-btn:active,
 html body .ui-group-theme-b .ui-btn:active,
 html head + body .ui-btn.ui-btn-b:active {
-	background-color: #3a5199e6 /*{b-bdown-background-color}*/;
+	background-color: #000 /*{b-bdown-background-color}*/;
 	border-color: #473b1f /*{b-bdown-border}*/;
 	color: #3d3724 /*{b-bdown-color}*/;
 	text-shadow: 0 /*{b-bdown-shadow-x}*/ 1px /*{b-bdown-shadow-y}*/ 0 /*{b-bdown-shadow-radius}*/ #bdbdbc /*{b-bdown-shadow-color}*/;
@@ -510,7 +510,7 @@ html .ui-bar-b .ui-slider-track .ui-btn-active,
 html .ui-body-b .ui-slider-track .ui-btn-active,
 html body .ui-group-theme-b .ui-slider-track .ui-btn-active,
 html body div.ui-slider-track.ui-body-b .ui-btn-active {
-	background-color: #3a5199e6 /*{b-active-background-color}*/;
+	background-color: #e76215  /*{b-active-background-color}*/;
 	border-color: #3d3724 /*{b-active-border}*/;
 	color: #ffffff /*{b-active-color}*/;
 	text-shadow: 0 /*{b-active-shadow-x}*/ 1px /*{b-active-shadow-y}*/ 0 /*{b-active-shadow-radius}*/ #f4ecd2 /*{b-active-shadow-color}*/;
@@ -521,7 +521,7 @@ html .ui-bar-b .ui-radio-on:after,
 html .ui-body-b .ui-radio-on:after,
 html body .ui-group-theme-b .ui-radio-on:after,
 .ui-btn.ui-radio-on.ui-btn-b:after {
-	border-color: #3a5199e6 /*{b-active-background-color}*/;
+	border-color: #e76215  /*{b-active-background-color}*/;
 }
 /* Focus */
 .ui-page-theme-b .ui-btn:focus,
@@ -582,8 +582,9 @@ button[disabled],
 }
 
 .ui-table{
-    border: solid;
-    border-collapse: collapse;
+    position: absolute;
+    border: solid 1px;
+    border-collapse: separate;
     padding: 0;
     width: 100%;
     right: 0;

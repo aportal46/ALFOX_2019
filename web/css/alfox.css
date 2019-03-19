@@ -89,14 +89,14 @@
     border-radius: 8px;
     border-style:  solid;
     border-width:  1px;
-    border-color:  #3a5199;
+    border-color:  #e76215;
     width:  30%;
     height: auto;
 }
 
 /* navbar copiant la charte du site ALCIS */
 .ui-navbar a {
-    background-color: #3a5199 !important;
+    background-color: #000 !important;
     color: #fffefe !important;
     border: 1px solid #AAAAAA !important;
 }
@@ -104,7 +104,7 @@
 /* couleur orange quand on passe sur la barre de navigation */
 .ui-navbar a:hover {
     background-color: white !important;
-    color: #3a5199 !important;
+    color: #e76215 !important;
     font-weight: bold;
 }
 /* la saisie ne prend que 60% de l'écran en largeur */
@@ -137,7 +137,7 @@
 }
 
 .cardTitre {
-    background-color: #3a5199;
+    background-color: #e76215;
     color: #ffffff;
     font-size: 18px;
     padding: 10px 10px 10px 10px;
@@ -167,7 +167,7 @@
 }
 
 .graphTitre {
-    background-color: #3a5199;
+    background-color: #e76215;
     color: white;
     font-size: 18px;
     padding: 10px 10px 10px 10px;

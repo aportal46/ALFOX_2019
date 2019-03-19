@@ -8,6 +8,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.persistence.Vehicule"%>
 <%@page import="com.persistence.DonneesTR"%>
+<%@page import="com.persistence.Loueur"%>
+<%@page import="com.persistence.Contrat"%>
 <%@page import="com.persistence.ConnexionMySQL"%>
 <%@page import="java.sql.Connection"%>
 <!DOCTYPE html>
@@ -54,13 +56,21 @@
                         <li><a href="#two" data-ajax="false">Véhicule</a></li>
                         <li><a href="#three" data-ajax="false">Loueur</a></li>
                     </ul>
-                </div><%
-                    ArrayList<String> immatriculations = Vehicule.getImmatriculations(con);
-                    Vehicule vehicule = Vehicule.getByImmatriculation(con, immatriculations.get(0));
-                    // recup l'immatriculation des véhicules
-                    int nb = Vehicule.size(con);
-                    ArrayList<DonneesTR> donnees = DonneesTR.getByDate(con, vehicule.getImmatriculation(), "2018-03-20");
-                %><div id="one" class="ui-body-d tablist-content">
+                </div>
+                <%
+                   ArrayList<String> immatriculations = Vehicule.getImmatriculations(con);
+                   Vehicule vehicule = Vehicule.getByImmatriculation(con, immatriculations.get(0));
+                   // recup l'immatriculation des véhicules
+                   int nbV = Vehicule.size(con);
+                   int nbC = Contrat.size(con);
+                   int nbL = Loueur.size(con); 
+                   ArrayList<DonneesTR> donnees = DonneesTR.getByDate(con, vehicule.getImmatriculation(), "2018-03-20");
+                   
+                   ArrayList<String> numero = Contrat.getNumeros(con);
+                   
+                   ArrayList<String> ID = Loueur.getIDs(con);
+                %>
+                <div id="one" class="ui-body-d tablist-content">
                     <table id="tabGestion" data-role="table" id="movie-table-custom" data-mode="reflow" class="table-stripe movie-list ui-responsive">
                         <thead>
                             <tr>
@@ -68,21 +78,25 @@
                                 <th data-priority="2">Date de Creation</th>
                                 <th data-priority="3">Modele</th>
                                 <th data-priority="4">Infos</th>
-                                <th data-priority="5">loueur</th>
-                                <th data-priority="4">Immatriculation</th>
-                                <th data-priority="5">Zonne Limite</th>
+                                <th data-priority="5">Prenom</th>
+                                <th data-priority="6">Nom</th>
+                                <th data-priority="7">Immatriculation</th>
+                                <th data-priority="8">Zonne Limite</th>
                             </tr>
                         </thead>
                         <tbody id="infosTR"><%
-                            // recup la liste des données tr pour ce véhicule et cette date
-                            for (int i = 0; i < donnees.size(); i++) {
-                                /*  out.print("<td>" + donnees.get(i).Ncontrat);
-                                    out.print("<td>" + donnees.get(i).DateCreation);
-                                    out.print("<td>" + donnees.get(i).cmodele);
-                                    out.print("<td>" + donnees.get(i).infos);
-                                    out.print("<td>" + donnees.get(i).prenom + donnees.get(i).nom);
-                                    out.print("<td>" + immatriculations.get(i));
-                                    out.print("<td>" + donnees.get(i).zonnelimiteID);*/
+                            // recup la liste des Contrat
+                            for (int i = 0; i < nbC; i++) {
+                                  Contrat c = Contrat.getByNumero(con, numero.get(i));   
+                                  /*Loueur l = Loueur.getByID(con, ID.get(i));*/
+                                  out.print("<tr><td>" + c.getNumero());
+                                  out.print("<td>" + c.getDate());
+                                  out.print("<td>" + c.getType());
+                                  out.print("<td>" + c.getInfos());
+                                /*  out.print("<td>" + l.getPrenom());
+                                  out.print("<td>" + l.getNom());*/
+                                  out.print("<td>" + immatriculations.get(i));
+                                  out.print("<td>" + c.getZoneLimiteID());
                             }
                             %></tbody>
                     </table>
@@ -91,44 +105,71 @@
                     <table id="tabGestion" data-role="table" id="movie-table-custom" data-mode="reflow" class="table-stripe movie-list ui-responsive">
                         <thead>
                             <tr>
-                                <th data-priority="1">Numéro</th>
-                                <th data-priority="2">Kilométrage</th>
-                                <th data-priority="3">Vitesse Moyenne</th>
-                                <th data-priority="4">Consommation Moyenne</th>
-                                <th data-priority="5">Immatriculation</th>
+                                <th data-priority="1">Immatriculation</th>
+                                <th data-priority="2">Marque</th>
+                                <th data-priority="3">Modele</th>
+                                <th data-priority="4">Date Mise en Service</th>
+                                <th data-priority="5">Motorisation</th>
+                                <th data-priority="6">Date de Vidange</th>
+                                <th data-priority="7">Km Vidange</th>
+                                <th data-priority="8">Hors Zone</th>
+                                <th data-priority="9">Taux d'utilisation</th>
+                                <th data-priority="10">AProbleme</th>
+                                <th data-priority="11">Compteur Reel</th>
+                                <th data-priority="12">Date CT</th>
+                                <th data-priority="13">Kilométrage</th>
+                                <th data-priority="14">Vitesse Moyenne</th>
+                                <th data-priority="15">Consommation Moyenne</th>
+                                <th data-priority="16">Régime</th>
+                                <th data-priority="17">Compteur KM</th>
                             </tr>
                         </thead>
                         <tbody id="infosTR"><%
-                                // recup la liste des données tr pour ce véhicule et cette date
-                                for (int i = 0; i < donnees.size(); i++) {
-                                    out.print("<tr><td>" + i + "</td>");
+                                // recup la liste des données tr et véhicules
+                                for (int i = 0; i < nbV; i++) {
+                                    Vehicule v = Vehicule.getByImmatriculation(con, immatriculations.get(i));
+                                    out.print("<tr><td>" + immatriculations.get(i) + "</td>");
+                                    out.print("<td>" + v.getMarque());
+                                    out.print("<td>" + v.getModele());
+                                    out.print("<td>" + v.getDateMiseEnService());
+                                    out.print("<td>" + v.getMotorisation());
+                                    out.print("<td>" + v.getDateVidange());
+                                    out.print("<td>" + v.getKmVidange());
+                                    out.print("<td>" + v.getHorsZone());
+                                    out.print("<td>" + v.getTauxUtilisation());
+                                    out.print("<td>" + v.getAProbleme());
+                                    out.print("<td>" + v.getCompteurReel());
+                                    out.print("<td>" + v.getDateControleTechnique());
                                     out.print("<td>" + donnees.get(i).getDistanceParcourue() + " km" + "</td>");
                                     out.print("<td>" + donnees.get(i).getVitesse() + " km/h" + "</td>");
                                     out.print("<td>" + donnees.get(i).getConsommation() + " l/100" + "</td>");
-                                    out.print("<td>" + immatriculations.get(i));
+                                    out.print("<td>" + donnees.get(i).getRegimeMax()+"Tr/min");
+                                    out.print("<td>" + donnees.get(i).getDistanceParcourue()+" km");           
                                 }
                             %></tbody>
                     </table>
-                </div>
+                </div> 
                 <div id="three" class="ui-body-d tablist-content">
                     <table id="tabGestion" data-role="table" id="movie-table-custom" data-mode="reflow" class="table-stripe movie-list ui-responsive">
                         <thead>
                             <tr>
                                 <th data-priority="1">N° Contrat</th>
                                 <th data-priority="2">Prenom</th>
-                                <th data-priority="3">Nom</th>
+                                <th data-priority="3">Nom</th>  
                                 <th data-priority="4">e-mail</th>
                                 <th data-priority="5">N° de Téléphone</th>
                             </tr>
                         </thead>
                         <tbody id="infosTR"><%
-                                // recup la liste des données tr pour ce véhicule et cette date
-                                for (int i = 0; i < donnees.size(); i++) {
-                                    /*  out.print("<td>" + donnees.get(i).Ncontrat);
-                                    out.print("<td>" + donnees.get(i).prenom);
-                                    out.print("<td>" + donnees.get(i).nom);
-                                    out.print("<td>" + donnees.get(i).email);
-                                    out.print("<td>" + donnees.get(i).numtel);*/
+                                // recup la liste des loueurs
+                                for (int i = 0; i < nbL; i++) {
+                                    Contrat c = Contrat.getByNumero(con, numero.get(i));
+                                    Loueur l = Loueur.getByID(con, ID.get(i));
+                                    out.print("<tr><td>" + c.getNumero ());
+                                    out.print("<td>" + l.getNom());
+                                    out.print("<td>" + l.getPrenom());
+                                    out.print("<td>" + l.getMail());
+                                    out.print("<td>" + l.getTelephone());
                                 }
                             %></tbody>
                     </table>

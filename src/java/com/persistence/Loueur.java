@@ -8,7 +8,8 @@
 package com.persistence;
 
 import java.sql.*;
-
+import java.util.ArrayList;
+        
 public class Loueur {
     private String    nom;              // non null
     private String    prenom;           // non null
@@ -84,7 +85,7 @@ public class Loueur {
         else
             return null;
     }
-    
+ 
     /**
      * suppression de l'objet loueur dans la BD
      * @param con
@@ -117,7 +118,24 @@ public class Loueur {
         this.telephone = telephone;
         this.mail = mail;
     }
-    
+    /**
+     * Indique le nb de Loueur dans la base de données
+     * @param con
+     * @return le nombre de Loueur
+     * @throws java.lang.Exception
+     */
+    public static int size(Connection con) throws Exception {
+        String queryString = "select count(*) as count from loueur";
+        Statement lStat = con.createStatement(
+                                            ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                            ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        if (lResult.next())
+            return (lResult.getInt("count"));
+        else 
+            return 0;
+    }
+
     // --------------------- les assesseurs ----------------------------
     public String getNom() {
         return nom;

@@ -64,7 +64,7 @@
                             width: 300,
                             height: 300,
                             legend: 'none',
-                            colors: ['#af2222'],
+                            colors: ['#E8972C'],
                             backgroundColor: '#EEEEEE'
                         };
                         chart.draw(data, options);
@@ -87,7 +87,7 @@
                             width: 300,
                             height: 300,
                             legend: 'none',
-                            colors: ['af2222'],
+                            colors: ['#E8972C'],
                             backgroundColor: '#EEEEEE'
                         };
                         chart.draw(data, options);
@@ -110,7 +110,7 @@
                             width: 300,
                             height: 300,
                             legend: 'none',
-                            colors: ['#af2222'],
+                            colors: ['#E8972C'],
                             backgroundColor: '#EEEEEE'
                         };
                         chart.draw(data, options);
@@ -133,7 +133,7 @@
                             width: 300,
                             height: 300,
                             legend: 'none',
-                            colors: ['af2222'],
+                            colors: ['#E8972C'],
                             backgroundColor: '#EEEEEE'
                         };
                         chart.draw(data, options);
@@ -153,7 +153,7 @@
                            width: 300,
                            height: 300,
                            legend: 'none',
-                           colors: ['af2222'],
+                           colors: ['#E8972C'],
                            backgroundColor: '#EEEEEE',
                            curveType: 'function',
                         };

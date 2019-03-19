@@ -8,6 +8,7 @@
 package com.persistence;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Contrat {
     private String    numero;
@@ -130,6 +131,38 @@ public class Contrat {
         this.vehiculeID = VehiculeID;
         this.zoneLimiteID = zoneLimiteID;
     }
+    
+    /**
+     * Indique le nb de contrat dans la base de données
+     * @param con
+     * @return le nombre de contrat
+     * @throws java.lang.Exception
+     */
+    public static int size(Connection con) throws Exception {
+        String queryString = "select count(*) as count from contrat";
+        Statement lStat = con.createStatement(
+                                            ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                            ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        if (lResult.next())
+            return (lResult.getInt("count"));
+        else 
+            return 0;
+    }
+    
+     public static ArrayList<String> getNumeros(Connection con) throws Exception {
+        String queryString = "select Numero from contrat"
+                                + " order by Numero";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        ArrayList<String> lstNumero = new ArrayList<>();
+        while (lResult.next()) {
+            lstNumero.add(lResult.getString("Numero"));
+        }
+        return lstNumero;
+     }
     
     // --------------------- les assesseurs ----------------------------
     public String getNumero() {
