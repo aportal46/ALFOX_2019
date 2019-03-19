@@ -6,14 +6,34 @@
 package com.persistence;
 
 import java.sql.Connection;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  *
  * @author acros
  */
 public class LoueurTest {
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
 
     /**
      * Test of create method, of class Loueur.
@@ -136,5 +156,18 @@ public class LoueurTest {
         instance.setMail("yvesmagritte@gmail.com");
         instance.save(con);
     }
-    
+
+    /**
+     * Test of getID method, of class Loueur.
+     */
+    @Test
+    public void testGetID() throws Exception {
+        System.out.println("getID");
+        Connection con = ConnexionMySQL.newConnexion();
+        Loueur loueur = Loueur.getByNom(con, "Bon", "Jean");
+        assertEquals(4, loueur.getID(con));
+        loueur = Loueur.getByNom(con, "Magritte", "René");
+        assertEquals(1, loueur.getID(con));
+        
+    }
 }

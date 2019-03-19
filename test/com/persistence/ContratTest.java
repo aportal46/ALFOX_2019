@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  * @author acros
  */
 public class ContratTest {
-    
+
     /**
      * Test of create method, of class Contrat.
      */
@@ -221,5 +221,47 @@ public class ContratTest {
         assertEquals(1, instance.getZoneLimiteID());
         instance.setZoneLimiteID(2);
         instance.save(con);
-    }    
+    }
+
+    /**
+     * Test of getByVehiculeID method, of class Contrat.
+     */
+    @Test
+    public void testGetByVehiculeID() throws Exception {
+        System.out.println("getByVehiculeID");
+        Connection con = ConnexionMySQL.newConnexion();
+        Contrat contrat = Contrat.getByVehiculeID(con, 3);
+        assertEquals("C3", contrat.getNumero());
+        contrat = Contrat.getByVehiculeID(con, 7);
+        assertEquals("C7", contrat.getNumero());
+    }
+
+    /**
+     * Test of getByLoueurID method, of class Contrat.
+     */
+    @Test
+    public void testGetByLoueurID() throws Exception {
+        System.out.println("getByLoueurID");
+        Connection con = ConnexionMySQL.newConnexion();
+        
+        Contrat contrat = Contrat.getByLoueurID(con, 1);
+        assertEquals("C1", contrat.getNumero());
+        
+        contrat = Contrat.getByLoueurID(con, 2);
+        assertEquals("C2", contrat.getNumero());
+        
+    }
+
+    /**
+     * Test of getID method, of class Contrat.
+     */
+    @Test
+    public void testGetID() throws Exception {
+        System.out.println("getID");
+        Connection con = ConnexionMySQL.newConnexion();
+        Contrat contrat = Contrat.getByNumero(con, "C1");
+        assertEquals(1, contrat.getID(con));
+        contrat = Contrat.getByNumero(con, "C8");
+        assertEquals(8, contrat.getID(con));
+    }
 }

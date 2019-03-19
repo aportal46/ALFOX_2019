@@ -3,6 +3,9 @@
  * Fichier : User.java
  * Description : Classe interface de la table vehicule
  * Cette table stocke les infos sur les véhicules connus du logiciel
+ * Modification : 18/03/2019
+ * ajout de la méthode getID() pour les jointures avec les autres tables
+ * necessaire pour retrouver le boitier associé
  *
  */
 package com.persistence;
@@ -81,21 +84,6 @@ public class Vehicule {
     }
 
     /**
-     * suppression de l'objet vehicule dans la BD
-     *
-     * @param con
-     * @return
-     * @throws SQLException impossible d'accéder à la ConnexionMySQL
-     */
-    public boolean delete(Connection con) throws Exception {
-        String queryString = "delete from vehicule"
-                + " where Immatriculation='" + immatriculation + "'";
-        Statement lStat = con.createStatement();
-        lStat.executeUpdate(queryString);
-        return true;
-    }
-
-    /**
      * update de l'objet vehicule dans la ConnexionMySQL
      *
      * @param con
@@ -119,6 +107,21 @@ public class Vehicule {
                 + " where Immatriculation ='" + immatriculation + "'";
         Statement lStat = con.createStatement();
         lStat.executeUpdate(queryString, Statement.NO_GENERATED_KEYS);
+    }
+    
+    /**
+     * suppression de l'objet vehicule dans la BD
+     *
+     * @param con
+     * @return
+     * @throws SQLException impossible d'accéder à la ConnexionMySQL
+     */
+    public boolean delete(Connection con) throws Exception {
+        String queryString = "delete from vehicule"
+                + " where Immatriculation='" + immatriculation + "'";
+        Statement lStat = con.createStatement();
+        lStat.executeUpdate(queryString);
+        return true;
     }
     
     public static ArrayList<String> getImmatriculations(Connection con) throws Exception {
@@ -267,6 +270,24 @@ public class Vehicule {
             }
         }
         return nbVehiculesDehors;
+    }
+    
+    /*
+        retourne l'ID d'un objet
+    */
+    public int getID(Connection con) throws Exception {
+        String queryString = "select ID from vehicule where Immatriculation='" 
+                                                + immatriculation + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        if (lResult.next()) {
+            return lResult.getInt("ID");
+        }
+        else {
+            return 0;
+        }
     }
     
     // Obligation de passer par la méthode getLastDatation() avant

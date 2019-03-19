@@ -68,6 +68,19 @@ public class Boitier {
         Statement lStat = con.createStatement();
         lStat.executeUpdate(queryString, Statement.NO_GENERATED_KEYS);
     }
+        
+    /**
+     * suppression de l'objet loueur dans la BD
+     * @param con
+     * @return 
+     * @throws SQLException impossible d'accéder à la ConnexionMySQL
+     */
+    public boolean delete(Connection con) throws Exception {
+        String queryString = "delete from boitier where SigfoxID='" + SigfoxID + "';";
+        Statement lStat = con.createStatement();
+        lStat.executeUpdate(queryString);
+        return true;
+    }
     
     /**
      * Retourne un boitier trouve par son SigfoxID
@@ -91,16 +104,24 @@ public class Boitier {
     }
     
     /**
-     * suppression de l'objet loueur dans la BD
-     * @param con
-     * @return 
-     * @throws SQLException impossible d'accéder à la ConnexionMySQL
+     * Retourne un boitier trouve par son vehiculeID
+     * @param  con
+     * @param  vehiculeID ID du vehicule recherché
+     * @return boitier trouvé par vehiculeID
+     * @throws java.lang.Exception
      */
-    public boolean delete(Connection con) throws Exception {
-        String queryString = "delete from boitier where SigfoxID='" + SigfoxID + "';";
-        Statement lStat = con.createStatement();
-        lStat.executeUpdate(queryString);
-        return true;
+    public static Boitier getByVehiculeID(Connection con, int vehiculeID) throws Exception {
+        String queryString = "select * from boitier where VehiculeID='" + vehiculeID + "';";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        if (lResult.next()) {
+            return creerParRequete(lResult);
+        }
+        else
+            return null;
     }
     
     private static Boitier creerParRequete(ResultSet result) throws Exception {
