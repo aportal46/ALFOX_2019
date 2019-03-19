@@ -107,6 +107,49 @@ public class Contrat {
             return null;
     }
     
+    /**
+     * Retourne un contrat trouve par son numero, saved is true
+     * @param con
+     * @param  vehiculeID le numero à trouver
+     * @return Contrat contrat trouve par numero
+     * @throws java.lang.Exception
+     */
+    public static Contrat getByVehiculeID(Connection con, int vehiculeID) throws Exception {
+        String queryString = "select * from contrat where VehiculeID='" + vehiculeID + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        if (lResult.next()) {
+            return creerParRequete(lResult);
+        }
+        else
+            return null;
+    }
+    
+    /**
+     * Retourne un contrat trouve par son numero, saved is true
+     * @param con
+     * @param  loueurID le numero à trouver
+     * @return Contrat contrat trouve par numero
+     * @throws java.lang.Exception
+     */
+    public static Contrat getByLoueurID(Connection con, int loueurID) throws Exception {
+        String queryString = "select * from contrat where LoueurID='" + loueurID + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        if (lResult.next()) {
+            return creerParRequete(lResult);
+        }
+        else
+            return null;
+    }
+    
+    
     private static Contrat creerParRequete(ResultSet result) throws Exception {
             String    lNumero  = result.getString("Numero");
             Timestamp lDateCreation = result.getTimestamp("DateCreation");
