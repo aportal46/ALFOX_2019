@@ -110,6 +110,46 @@ public class Position {
         return lstPos;
     }
     
+    /*
+        retourne l'ID d'un objet
+    */
+    public int getID(Connection con) throws Exception {
+        String queryString = "select ID from position"
+            + " ZoneLimite='" + zoneID + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        if (lResult.next()) {
+            return lResult.getInt("ID");
+        }
+        else {
+            return 0;
+        }
+    }
+    
+    /**
+     * Retourne un contrat trouve par son numero, saved is true
+     * @param con
+     * @param  zoneID le numero à trouver
+     * @return Contrat contrat trouve par numero
+     * @throws java.lang.Exception
+     */
+    public static  ArrayList<Position> getByZoneLimiteID(Connection con, int zoneID) throws Exception {
+        ArrayList<Position> lesPositions = new ArrayList<>();
+        String queryString = "select * from position where ZoneLimiteID='" + zoneID + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        while (lResult.next()) {
+             lesPositions.add(creerParRequete(lResult, zoneID));
+        }
+        return lesPositions;
+        
+    }
+    
     private static Position creerParRequete(ResultSet result, int zoneID) throws Exception {
             int       lOrdre  = result.getInt("Ordre");
             double    lLatitude = result.getDouble("Latitude");

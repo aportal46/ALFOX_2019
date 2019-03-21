@@ -7,6 +7,7 @@ package com.persistence;
 
 import java.sql.Connection;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,6 +20,22 @@ import static org.junit.Assert.*;
  * @author acros
  */
 public class ContratTest {
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
 
     /**
      * Test of create method, of class Contrat.
@@ -243,25 +260,66 @@ public class ContratTest {
     public void testGetByLoueurID() throws Exception {
         System.out.println("getByLoueurID");
         Connection con = ConnexionMySQL.newConnexion();
+        ArrayList<Contrat> contrats = Contrat.getByLoueurID(con, 1);
+        assertEquals("C1", contrats.get(0).getNumero());
         
-        Contrat contrat = Contrat.getByLoueurID(con, 1);
-        assertEquals("C1", contrat.getNumero());
-        
-        contrat = Contrat.getByLoueurID(con, 2);
-        assertEquals("C2", contrat.getNumero());
-        
+        contrats = Contrat.getByLoueurID(con, 2);
+        assertEquals(7, contrats.size());
+        assertEquals("C2", contrats.get(0).getNumero());
+        assertEquals("C3", contrats.get(1).getNumero());   
+        assertEquals("C4", contrats.get(2).getNumero());
     }
 
     /**
-     * Test of getID method, of class Contrat.
+     * Test of getLoueurID method, of class Contrat.
      */
     @Test
-    public void testGetID() throws Exception {
-        System.out.println("getID");
+    public void testGetLoueurID_Connection_int() throws Exception {
+        System.out.println("getLoueurID");
         Connection con = ConnexionMySQL.newConnexion();
         Contrat contrat = Contrat.getByNumero(con, "C1");
-        assertEquals(1, contrat.getID(con));
-        contrat = Contrat.getByNumero(con, "C8");
-        assertEquals(8, contrat.getID(con));
+        assertEquals(1, contrat.getLoueurID());
+        contrat = Contrat.getByNumero(con, "C2");
+        assertEquals(2, contrat.getLoueurID());     
+    }
+    
+    /**
+     * Test of getVehiculeID method, of class Contrat.
+     */
+    @Test
+    public void testGetVehiculeID_Connection_int() throws Exception {
+        System.out.println("getVehiculeID");
+        Connection con = ConnexionMySQL.newConnexion();
+        Contrat contrat = Contrat.getByNumero(con, "C1");
+        assertEquals(1, contrat.getVehiculeID());
+        contrat = Contrat.getByNumero(con, "C2");
+        assertEquals(2, contrat.getVehiculeID());     
+    }
+    
+    /**
+     * Test of getVehiculeID method, of class Contrat.
+     */
+    @Test
+    public void testGetZoneLimiteID_Connection_int() throws Exception {
+        System.out.println("getZoneLimiteID");
+        Connection con = ConnexionMySQL.newConnexion();
+        Contrat contrat = Contrat.getByNumero(con, "C1");
+        assertEquals(2, contrat.getZoneLimiteID());
+        contrat = Contrat.getByNumero(con, "C2");
+        assertEquals(2, contrat.getZoneLimiteID());     
+    }
+
+    /**
+     * Test of getByZoneLimiteID method, of class Contrat.
+     */
+    @Test
+    public void testGetByZoneLimiteID() throws Exception {
+        System.out.println("getByZoneLimiteID");
+        Connection con = ConnexionMySQL.newConnexion();
+        ArrayList<Contrat> contrats = Contrat.getByZoneLimiteID(con, 2);
+        assertEquals(8, contrats.size());
+        assertEquals("C1", contrats.get(0).getNumero());
+        assertEquals("C3", contrats.get(2).getNumero());   
+        assertEquals("C4", contrats.get(3).getNumero());
     }
 }

@@ -135,6 +135,25 @@ public class Loueur {
         else 
             return 0;
     }
+    
+    /*
+        retourne l'ID d'un objet
+    */
+    public int getID(Connection con) throws Exception {
+        String queryString = "select ID from loueur"
+            + " where Nom='" + nom + "'"
+            + " and Prenom='" + prenom + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        if (lResult.next()) {
+            return lResult.getInt("ID");
+        }
+        else {
+            return 0;
+        }
+    }
 
     // --------------------- les assesseurs ----------------------------
     public String getNom() {

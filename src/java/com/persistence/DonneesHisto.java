@@ -156,6 +156,27 @@ public class DonneesHisto {
             return null;
         }
     }
+    
+    /**
+     * Retourne un contrat trouve par son numero, saved is true
+     * @param con
+     * @param  vehiculeID le numero à trouver
+     * @return Contrat contrat trouve par numero
+     * @throws java.lang.Exception
+     */
+    public static ArrayList<DonneesHisto> getByVehiculeID(Connection con, int vehiculeID) throws Exception {
+        ArrayList<DonneesHisto> lesDonneesHisto = new ArrayList<>();
+        String queryString = "select * from DonneesHisto where VehiculeID='" + vehiculeID + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        while (lResult.next()) {
+             lesDonneesHisto.add(creerParRequete(lResult));
+        }
+        return lesDonneesHisto;
+    }
 
     public static ArrayList<DonneesHisto> getByDate(Connection con,
             String immatriculation, String dateDonnees) throws Exception {

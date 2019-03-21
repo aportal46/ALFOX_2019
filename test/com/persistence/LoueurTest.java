@@ -74,7 +74,7 @@ public class LoueurTest {
         System.out.println("getByNom");
         Connection con = ConnexionMySQL.newConnexion();
         Loueur result = Loueur.getByNom(con, "Magritte", "René");
-        assertEquals("Magritte", result.getNom());
+        assertEquals(1, result.getID(con));
     }
 
     /**
