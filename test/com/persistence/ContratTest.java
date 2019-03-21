@@ -282,6 +282,32 @@ public class ContratTest {
         contrat = Contrat.getByNumero(con, "C2");
         assertEquals(2, contrat.getLoueurID());     
     }
+    
+    /**
+     * Test of getVehiculeID method, of class Contrat.
+     */
+    @Test
+    public void testGetVehiculeID_Connection_int() throws Exception {
+        System.out.println("getVehiculeID");
+        Connection con = ConnexionMySQL.newConnexion();
+        Contrat contrat = Contrat.getByNumero(con, "C1");
+        assertEquals(1, contrat.getVehiculeID());
+        contrat = Contrat.getByNumero(con, "C2");
+        assertEquals(2, contrat.getVehiculeID());     
+    }
+    
+    /**
+     * Test of getVehiculeID method, of class Contrat.
+     */
+    @Test
+    public void testGetZoneLimiteID_Connection_int() throws Exception {
+        System.out.println("getZoneLimiteID");
+        Connection con = ConnexionMySQL.newConnexion();
+        Contrat contrat = Contrat.getByNumero(con, "C1");
+        assertEquals(2, contrat.getZoneLimiteID());
+        contrat = Contrat.getByNumero(con, "C2");
+        assertEquals(2, contrat.getZoneLimiteID());     
+    }
 
     /**
      * Test of getByZoneLimiteID method, of class Contrat.

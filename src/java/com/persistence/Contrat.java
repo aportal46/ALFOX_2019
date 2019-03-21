@@ -170,29 +170,7 @@ public class Contrat {
         return lesContrats;
         
     }
-    
-    /**
-     * Retourne un contrat trouve par son numero, saved is true
-     * @param con
-     * @param  numero le loueurID à trouver
-     * @return Contrat contrat trouve par numero
-     * @throws java.lang.Exception
-     */
-    public static Contrat getLoueurID(Connection con, int numero) throws Exception {
-        String queryString = "select * from contrat where Numero='" + numero + "'";
-        Statement lStat = con.createStatement(
-                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                                ResultSet.CONCUR_READ_ONLY);
-        ResultSet lResult = lStat.executeQuery(queryString);
-        // y en a t'il au moins un ?
-        if (lResult.next()) {
-            return creerParRequete(lResult);
-        }
-        else
-            return null;
-    }
-    
-    
+      
     private static Contrat creerParRequete(ResultSet result) throws Exception {
             String    lNumero  = result.getString("Numero");
             Timestamp lDateCreation = result.getTimestamp("DateCreation");
