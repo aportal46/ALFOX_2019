@@ -103,8 +103,8 @@
 
 /* couleur orange quand on passe sur la barre de navigation */
 .ui-navbar a:hover {
-    background-color: white !important;
-    color: #e76215 !important;
+    background-color: #e76215 !important;
+    color: #fff !important;
     font-weight: bold;
 }
 /* la saisie ne prend que 60% de l'écran en largeur */
@@ -209,7 +209,7 @@
 }
 
 .tablist-left {
-    width: 25vw;
+    width: -webkit-fill-available;
     display: inline-block;
 }
 .tablist-content {
