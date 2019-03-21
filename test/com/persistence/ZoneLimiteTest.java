@@ -148,4 +148,15 @@ public class ZoneLimiteTest {
         assertEquals(43.60192, result.get(6), 0.000001);
         assertEquals(1.530292, result.get(7), 0.000001);
     }
+
+    /**
+     * Test of getID method, of class ZoneLimite.
+     */
+    @Test
+    public void testGetID_Connection() throws Exception {
+        System.out.println("getID");
+        Connection con = ConnexionMySQL.newConnexion();
+        ZoneLimite result = ZoneLimite.getByNom(con, "Alcis");
+        assertEquals(1, result.getID());
+    }
 }

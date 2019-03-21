@@ -106,6 +106,27 @@ public class DonneesTR {
         donneesTR.save(con);
         return donneesTR;
     }
+    
+     /**
+     * Retourne un contrat trouve par son numero, saved is true
+     * @param con
+     * @param  vehiculeID le numero à trouver
+     * @return Contrat contrat trouve par numero
+     * @throws java.lang.Exception
+     */
+    public static ArrayList<DonneesTR> getByVehiculeID(Connection con, int vehiculeID) throws Exception {
+        ArrayList<DonneesTR> lesDonneesTR = new ArrayList<>();
+        String queryString = "select * from DonneesTR where VehiculeID='" + vehiculeID + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        while (lResult.next()) {
+             lesDonneesTR.add(creerParRequete(lResult));
+        }
+        return lesDonneesTR;
+    }
 
     /**
      * suppression de l'objet donneesTR dans la BD

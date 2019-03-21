@@ -7,8 +7,12 @@ package com.persistence;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -134,5 +138,19 @@ public class PositionTest {
         // on restitue l'état initial
         result.setLongitude(1.524203);
         result.save(con);
+    }
+
+    /**
+     * Test of getByZoneLimiteID method, of class Position.
+     */
+    @Test
+    public void testGetByZoneLimiteID() throws Exception {
+        System.out.println("getByZoneLimiteID");
+        Connection con = ConnexionMySQL.newConnexion();
+        ArrayList<Position> position = Position.getByZoneLimiteID(con, 2);
+        assertEquals(10, position.size());
+        assertEquals(1, position.get(0).getOrdre());
+        assertEquals(3, position.get(2).getOrdre());   
+        assertEquals(4, position.get(3).getOrdre());
     }
 }

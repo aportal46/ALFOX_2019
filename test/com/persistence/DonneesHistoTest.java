@@ -320,4 +320,14 @@ public class DonneesHistoTest {
         assertEquals(26, result.get(0).getVitesse());
         assertEquals(36, result.get(5).getVitesse());
     }    
+    /**
+     * Test of getByVehiculeID method, of class DonneesHisto.
+     */
+    @Test
+    public void testGetByVehiculeID() throws Exception {
+        System.out.println("getByVehiculeID");
+        Connection con = ConnexionMySQL.newConnexion();
+        ArrayList<DonneesHisto> donneesHistos = DonneesHisto.getByVehiculeID(con, 1);
+        assertEquals("NORMAL", donneesHistos.get(0).getMode());
+    }
 }

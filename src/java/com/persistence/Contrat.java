@@ -135,8 +135,51 @@ public class Contrat {
      * @return Contrat contrat trouve par numero
      * @throws java.lang.Exception
      */
-    public static Contrat getByLoueurID(Connection con, int loueurID) throws Exception {
+    public static ArrayList<Contrat> getByLoueurID(Connection con, int loueurID) throws Exception {
+        ArrayList<Contrat> lesContrats = new ArrayList<>();
         String queryString = "select * from contrat where LoueurID='" + loueurID + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        while (lResult.next()) {
+             lesContrats.add(creerParRequete(lResult));
+        }
+        return lesContrats;
+    }
+    
+    /**
+     * Retourne un contrat trouve par son numero, saved is true
+     * @param con
+     * @param  zonelimiteID le numero à trouver
+     * @return Contrat contrat trouve par numero
+     * @throws java.lang.Exception
+     */
+    public static  ArrayList<Contrat> getByZoneLimiteID(Connection con, int zonelimiteID) throws Exception {
+        ArrayList<Contrat> lesContrats = new ArrayList<>();
+        String queryString = "select * from contrat where ZoneLimiteID='" + zonelimiteID + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        while (lResult.next()) {
+             lesContrats.add(creerParRequete(lResult));
+        }
+        return lesContrats;
+        
+    }
+    
+    /**
+     * Retourne un contrat trouve par son numero, saved is true
+     * @param con
+     * @param  numero le loueurID à trouver
+     * @return Contrat contrat trouve par numero
+     * @throws java.lang.Exception
+     */
+    public static Contrat getLoueurID(Connection con, int numero) throws Exception {
+        String queryString = "select * from contrat where Numero='" + numero + "'";
         Statement lStat = con.createStatement(
                                 ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                 ResultSet.CONCUR_READ_ONLY);

@@ -11,8 +11,12 @@ package com.persistence;
 import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -392,5 +396,16 @@ public class DonneesTRTest {
         assertEquals(8,  result.size());
         assertEquals(26, result.get(0).getVitesse());
         assertEquals(36, result.get(5).getVitesse());
+    }
+
+    /**
+     * Test of getByVehiculeID method, of class DonneesTR.
+     */
+    @Test
+    public void testGetByVehiculeID() throws Exception {
+        System.out.println("getByVehiculeID");
+        Connection con = ConnexionMySQL.newConnexion();
+        ArrayList<DonneesTR> donneesTR = DonneesTR.getByVehiculeID(con, 1);
+        assertEquals("NORMAL", donneesTR.get(0).getMode());
     }
 }

@@ -260,9 +260,40 @@ public class ContratTest {
     public void testGetByLoueurID() throws Exception {
         System.out.println("getByLoueurID");
         Connection con = ConnexionMySQL.newConnexion();
-        Contrat contrat = Contrat.getByLoueurID(con, 1);
-        assertEquals("C1", contrat.getNumero());
-        contrat = Contrat.getByLoueurID(con, 2);
-        assertEquals("C2", contrat.getNumero());     
+        ArrayList<Contrat> contrats = Contrat.getByLoueurID(con, 1);
+        assertEquals("C1", contrats.get(0).getNumero());
+        
+        contrats = Contrat.getByLoueurID(con, 2);
+        assertEquals(7, contrats.size());
+        assertEquals("C2", contrats.get(0).getNumero());
+        assertEquals("C3", contrats.get(1).getNumero());   
+        assertEquals("C4", contrats.get(2).getNumero());
+    }
+
+    /**
+     * Test of getLoueurID method, of class Contrat.
+     */
+    @Test
+    public void testGetLoueurID_Connection_int() throws Exception {
+        System.out.println("getLoueurID");
+        Connection con = ConnexionMySQL.newConnexion();
+        Contrat contrat = Contrat.getByNumero(con, "C1");
+        assertEquals(1, contrat.getLoueurID());
+        contrat = Contrat.getByNumero(con, "C2");
+        assertEquals(2, contrat.getLoueurID());     
+    }
+
+    /**
+     * Test of getByZoneLimiteID method, of class Contrat.
+     */
+    @Test
+    public void testGetByZoneLimiteID() throws Exception {
+        System.out.println("getByZoneLimiteID");
+        Connection con = ConnexionMySQL.newConnexion();
+        ArrayList<Contrat> contrats = Contrat.getByZoneLimiteID(con, 2);
+        assertEquals(8, contrats.size());
+        assertEquals("C1", contrats.get(0).getNumero());
+        assertEquals("C3", contrats.get(2).getNumero());   
+        assertEquals("C4", contrats.get(3).getNumero());
     }
 }
