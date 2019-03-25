@@ -464,6 +464,24 @@ public class DonneesTR {
             snr, rssi, avgSnr, radius,
             latitudeSigfox, longitudeSigfox, 0, vehiculeID);
     }
+    
+     /**
+     * Indique le nb de donneesTR dans la base de données
+     * @param con
+     * @return le nombre de vehicules
+     * @throws java.lang.Exception
+     */
+    public static int size(Connection con) throws Exception {
+        String queryString = "select count(*) as count from donneesTR";
+        Statement lStat = con.createStatement(
+                                            ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                            ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        if (lResult.next())
+            return (lResult.getInt("count"));
+        else 
+            return 0;
+    }
 
     /**
      * Retourne une donneesTR trouve par sa date, saved is true

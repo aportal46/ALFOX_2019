@@ -153,4 +153,15 @@ public class PositionTest {
         assertEquals(3, position.get(2).getOrdre());   
         assertEquals(4, position.get(3).getOrdre());
     }
+
+    /**
+     * Test of size method, of class Position.
+     */
+    @Test
+    public void testSize() throws Exception {
+        System.out.println("size");
+        Connection con = ConnexionMySQL.newConnexion();
+        int result = Position.size(con);
+        assertEquals(25, result);
+    }
 }

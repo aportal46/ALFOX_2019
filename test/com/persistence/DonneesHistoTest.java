@@ -327,7 +327,20 @@ public class DonneesHistoTest {
     public void testGetByVehiculeID() throws Exception {
         System.out.println("getByVehiculeID");
         Connection con = ConnexionMySQL.newConnexion();
-        ArrayList<DonneesHisto> donneesHistos = DonneesHisto.getByVehiculeID(con, 1);
-        assertEquals("NORMAL", donneesHistos.get(0).getMode());
+        ArrayList<DonneesHisto> result = DonneesHisto.getByVehiculeID(con, 1);
+        assertEquals(8,  result.size());
+        assertEquals(35, result.get(0).getVitesse());
+        assertEquals(110, result.get(5).getVitesse());
+    }
+
+    /**
+     * Test of size method, of class DonneesHisto.
+     */
+    @Test
+    public void testSize() throws Exception {
+        System.out.println("size");
+        Connection con = ConnexionMySQL.newConnexion();
+        int result = DonneesHisto.size(con);
+        assertEquals(42, result);
     }
 }

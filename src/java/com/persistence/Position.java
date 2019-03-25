@@ -128,6 +128,24 @@ public class Position {
         }
     }
     
+     /**
+     * Indique le nb de position dans la base de données
+     * @param con
+     * @return le nombre de vehicules
+     * @throws java.lang.Exception
+     */
+    public static int size(Connection con) throws Exception {
+        String queryString = "select count(*) as count from position";
+        Statement lStat = con.createStatement(
+                                            ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                            ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        if (lResult.next())
+            return (lResult.getInt("count"));
+        else 
+            return 0;
+    }
+    
     /**
      * Retourne un contrat trouve par son numero, saved is true
      * @param con

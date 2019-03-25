@@ -18,8 +18,6 @@ import static org.junit.Assert.*;
  * @author snir2g1
  */
 public class BoitierTest {
-    
-
 
     /**
      * Test of getByID method, of class Boitier.
@@ -46,4 +44,16 @@ public class BoitierTest {
         boitier = Boitier.getByVehiculeID(con, 2);
         assertEquals("1D188E", boitier.getSigfoxID());
     } 
+
+
+    /**
+     * Test of size method, of class Boitier.
+     */
+    @Test
+    public void testSize() throws Exception {
+        System.out.println("size");
+        Connection con = ConnexionMySQL.newConnexion();
+        int result = Boitier.size(con);
+        assertEquals(8, result);
+    }
 }

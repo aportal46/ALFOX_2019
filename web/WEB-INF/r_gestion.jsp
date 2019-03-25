@@ -108,7 +108,10 @@
                                 out.print("<td>" + c.getZoneLimiteID());
                                 out.print("<td>"); %>
                                 <div id="btnModifContrat"class="ui-nodisc-icon"><!-- Class added to the wrapper -->
-                                    <a href= "#" class="ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-b ui-btn-inline">Plus</a>
+                                    <a href="
+                                    <%  out.print(i);
+                                    %>
+                                       " class="ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-b ui-btn-inline">Plus</a>
                                     <a href= "#" class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-b ui-btn-inline">Plus</a>
                                 </div> <% 
                             }

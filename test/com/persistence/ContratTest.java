@@ -322,4 +322,15 @@ public class ContratTest {
         assertEquals("C3", contrats.get(2).getNumero());   
         assertEquals("C4", contrats.get(3).getNumero());
     }
+
+    /**
+     * Test of size method, of class Contrat.
+     */
+    @Test
+    public void testSize() throws Exception {
+        System.out.println("size");
+        Connection con = ConnexionMySQL.newConnexion();
+        int result = Contrat.size(con);
+        assertEquals(8, result);
+    }
 }

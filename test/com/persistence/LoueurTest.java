@@ -19,22 +19,6 @@ import org.junit.BeforeClass;
  */
 public class LoueurTest {
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
     /**
      * Test of create method, of class Loueur.
      * @throws java.lang.Exception
@@ -169,5 +153,16 @@ public class LoueurTest {
         loueur = Loueur.getByNom(con, "Magritte", "René");
         assertEquals(1, loueur.getID(con));
         
+    }
+    
+    /**
+     * Test of size method, of class Loueur.
+     */
+    @Test
+    public void testSize() throws Exception {
+        System.out.println("size");
+        Connection con = ConnexionMySQL.newConnexion();
+        int result = Loueur.size(con);
+        assertEquals(4, result);
     }
 }

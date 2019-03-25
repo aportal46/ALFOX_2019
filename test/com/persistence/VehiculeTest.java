@@ -445,7 +445,7 @@ public class VehiculeTest {
         System.out.println("getAgeMoyenFlotte");
         Connection con = ConnexionMySQL.newConnexion();
         int result = Vehicule.getAgeMoyenFlotte(con);
-        assertEquals(441, result);  // le 30 Mai 2018
+        assertEquals(448, result);  // le 30 Mai 2018
     }
 
     /**
