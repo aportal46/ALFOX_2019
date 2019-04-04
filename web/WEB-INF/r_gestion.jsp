@@ -66,7 +66,7 @@
                     // recup l'immatriculation des véhicules
                     ArrayList<DonneesTR> donnees = DonneesTR.getByDate(con, vehicule.getImmatriculation(), "2018-03-20");
                     ArrayList<String> numero = Contrat.getNumeros(con);
-                    /* ArrayList<String> ID = Loueur.getIDs(con); */
+                    
                 %>
                 <%----   Script des Popups et selection de ligne  ----%>
                     <div id="one" class="ui-body-d tablist-content">
@@ -99,10 +99,15 @@
                                             <div class="ui-field-contain">
                                                 <select name="Model" id="select-Immatricualtion">
                                                     <option>Immatriculation</option>
-                                                    <option value="1">The 1st Option</option>
-                                                    <option value="2">The 2nd Option</option>
-                                                    <option value="3">The 3rd Option</option>
-                                                    <option value="4">The 4th Option</option>
+                                        <%                                            for (int i = 0; nbV > i; i++) {
+                                        %><option value="
+                                                <% out.print(i); %>
+                                                ">
+                                            <%
+                                                    out.print(immatriculations.get(i));
+                                                }
+                                            %>
+                                        </option>
                                                 </select>
                                             </div>
                                         <form>
@@ -139,8 +144,8 @@
                             </thead>
                             <tbody id="infosTR"><%// recup la liste des Contrat
                                 for (int i = 0; i < nbC; i++) {
-                                    Contrat c = Contrat.getByNumero(con, numero.get(i));
-                                    /*Loueur l = Loueur.getByID(con, ID.get(i));*/
+
+                                    Contrat c = Contrat.getByNumero(con, numero.get(i));;
                                     out.print("<tr><td>" + c.getNumero());
                                     out.print("<td>" + c.getDate());
                                     out.print("<td>" + c.getType());
@@ -162,10 +167,14 @@
                                                 <div class="ui-field-contain">
                                                     <select name="immatriculation" id="select-Immatricualtion">
                                                         <option>Immatriculation</option>
-                                                        <option value="1">The 1st Option</option>
-                                                        <option value="2">The 2nd Option</option>
-                                                        <option value="3">The 3rd Option</option>
-                                                        <option value="4">The 4th Option</option>
+                                            <%
+                                                for (int mci = 0; nbV > mci; mci++) {
+                                            %><option value="<% out.print(mci); %>">
+                                                <%
+                                                        out.print(immatriculations.get(mci));
+                                                    }
+                                                %>
+                                            </option>
                                                     </select>
                                                 </div>
                                                 <div class="ui-field-contain">
@@ -314,13 +323,6 @@
                                         <div style="padding:10px 20px;">
                                             <h3>Modification</h3>
                                                 <div class="ui-field-contain">
-                                                    <select name="immatriculation" id="select-Immatricualtion">
-                                                        <option>Immatriculation</option>
-                                                        <option value="1">The 1st Option</option>
-                                                        <option value="2">The 2nd Option</option>
-                                                        <option value="3">The 3rd Option</option>
-                                                        <option value="4">The 4th Option</option>
-                                                    </select>
                                                 </div>
                                                 <div class="ui-field-contain">
                                                     <select name="ZoneLimite" id="select-ZoneLimite">
@@ -384,16 +386,11 @@
                             <tbody id="infosTR"><%
                                 // recup la liste des loueurs
                                 for (int i = 0; i < nbL; i++) {
-                                    out.print("<tr><td>" + "Nom");
-                                    out.print("<td>" + "Prenom");
-                                    out.print("<td>" + "E-mail");
-                                    out.print("<td>" + "N° Tel");
-                                    /*   Contrat c = Contrat.getByNumero(con, numero.get(i));
-                                            Loueur l = Loueur.getByID(con, ID.get(i));
-                                            out.print("<td>" + l.getNom());
+                                    Loueur l = Loueur.getById(con, i+1);
+                                    out.print("<tr><td>" + l.getNom());
                                             out.print("<td>" + l.getPrenom());
                                             out.print("<td>" + l.getMail());
-                                            out.print("<td>" + l.getTelephone());*/
+                                    out.print("<td>" + l.getTelephone());
                                     out.print("<td>");
                                 %>
                                 <%----  Btn de Modification dans le tableau Loueur  ---%>

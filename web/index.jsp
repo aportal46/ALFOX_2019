@@ -48,7 +48,7 @@
                         <input name="action" id="login" type="hidden" value="login_req"/><br/>
                         <button type="submit" id="submitOK" name="submitOK">OK</button>
                     </form>
-                    <p class="mini">V1.0 - Juin 2018<br/>Développement : BTS SNIR Lycée V.Hugo Colomiers</p>
+                    <p class="mini">V0.2 - Février 2019<br/>Développement : BTS SNIR Lycée V.Hugo Colomiers</p>
                 </center>
             </div>
         </div>

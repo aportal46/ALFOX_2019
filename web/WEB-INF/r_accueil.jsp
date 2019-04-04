@@ -111,7 +111,7 @@
                     </div>
                     <br/><br/><br/><br/><br/>
                     
-                    <p class="mini">V0.1 - Mars 2018<br/>Développement : BTS SNIR Lycée V.Hugo Colomiers</p>
+                    <p class="mini">V0.2 - Février 2019<br/>Développement : BTS SNIR Lycée V.Hugo Colomiers</p>
                     <br/><br/><br/>
                 </center>
             </div>

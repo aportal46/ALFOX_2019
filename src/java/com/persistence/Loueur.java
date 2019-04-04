@@ -65,6 +65,28 @@ public class Loueur {
     /**
      * Retourne un loueur trouve par son nom et prénom, saved is true
      * @param con
+     * @param  id
+     * @return loueur trouvé par nom et prénom
+     * @throws java.lang.Exception
+     */
+    public static Loueur getById(Connection con, int id) throws Exception {
+        String queryString = "select * from loueur"
+            + " where ID='" + id + "';";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        if (lResult.next()) {
+            return creerParRequete(lResult);
+        }
+        else
+            return null;
+    }
+    
+    /**
+     * Retourne un loueur trouve par son nom et prénom, saved is true
+     * @param con
      * @param  nom nom du loueur recherché
      * @param  prenom prénom du loueur recherché
      * @return loueur trouvé par nom et prénom
