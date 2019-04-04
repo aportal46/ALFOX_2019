@@ -223,3 +223,33 @@
     border-right: 1px solid #fff;
     text-align: center;
 }
+#tabGestion tr {
+    background-color: #eee;
+    border-top: 1px solid #fff;
+}
+#tabGestion tr:hover {
+    background-color: #ccc;
+}
+#tabGestion th {
+    background-color: #fff;
+}
+#tabGestion th, #tabGestion td {
+    padding: 3px 5px;
+}
+#tabGestion td:hover {
+    cursor: pointer;
+}
+
+#phone::-webkit-inner-spin-button,
+#phone::-webkit-outer-spin-button{-webkit-appearance: none;
+                                  margin: 0;
+}
+#phone::-o-inner-spin-button,
+#phone::-o-outer-spin-button{-o-appearance: none;
+                             margin: 0;
+}
+
+#Eboitier{
+    display: block;
+    position: relative;
+}
