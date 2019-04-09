@@ -65,6 +65,28 @@ public class Loueur {
     /**
      * Retourne un loueur trouve par son nom et prénom, saved is true
      * @param con
+     * @param  id
+     * @return loueur trouvé par nom et prénom
+     * @throws java.lang.Exception
+     */
+    public static Loueur getById(Connection con, int id) throws Exception {
+        String queryString = "select * from loueur"
+            + " where ID='" + id + "';";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        if (lResult.next()) {
+            return creerParRequete(lResult);
+        }
+        else
+            return null;
+    }
+    
+    /**
+     * Retourne un loueur trouve par son nom et prénom, saved is true
+     * @param con
      * @param  nom nom du loueur recherché
      * @param  prenom prénom du loueur recherché
      * @return loueur trouvé par nom et prénom
@@ -86,28 +108,21 @@ public class Loueur {
             return null;
     }
     
-    /**
-     * Retourne un loueur trouve par son nom et prénom, saved is true
-     * @param con
-     * @param  id
-     * @return loueur trouvé id
-     * @throws java.lang.Exception
-     */
-    public static Loueur getByID(Connection con, int id) throws Exception {
-        String queryString = "select * from loueur"
-            + " where ID='" + id + "';";
+    public static Loueur getByContratID(Connection con, String IDContrat) throws Exception {
+        String queryString = "SELECT * FROM loueur JOIN contrat ON loueur.ID = contrat.LoueurID WHERE Numero = '" + IDContrat + "'";
         Statement lStat = con.createStatement(
                                 ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                 ResultSet.CONCUR_READ_ONLY);
         ResultSet lResult = lStat.executeQuery(queryString);
         // y en a t'il au moins un ?
         if (lResult.next()) {
-            return creerParRequete(lResult);
+              return creerParRequete(lResult);
         }
-        else
+        else {
             return null;
+        }
     }
-    
+ 
     /**
      * suppression de l'objet loueur dans la BD
      * @param con
@@ -124,11 +139,11 @@ public class Loueur {
     }
     
     private static Loueur creerParRequete(ResultSet result) throws Exception {
-            String    lNom  = result.getString("Nom");
-            String    lPrenom = result.getString("Prenom");
-            String    lTelephone = result.getString("Telephone");
-            String    lMail = result.getString("Mail");
-            return    new Loueur(lNom,lPrenom, lTelephone, lMail);
+        String    lNom  = result.getString("Nom");
+        String    lPrenom = result.getString("Prenom");
+        String    lTelephone = result.getString("Telephone");
+        String    lMail = result.getString("Mail");
+        return    new Loueur(lNom,lPrenom, lTelephone, lMail);
     }
     
     /**
