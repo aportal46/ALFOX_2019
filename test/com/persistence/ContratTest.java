@@ -20,23 +20,7 @@ import static org.junit.Assert.*;
  * @author acros
  */
 public class ContratTest {
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
+    
     /**
      * Test of create method, of class Contrat.
      */
@@ -333,4 +317,17 @@ public class ContratTest {
         int result = Contrat.size(con);
         assertEquals(8, result);
     }
+
+    /**
+     * Test of getByID method, of class Contrat.
+     */
+    @Test
+    public void testGetByID() throws Exception {
+        System.out.println("getByID");
+        Connection con = ConnexionMySQL.newConnexion();
+        Contrat contrat = Contrat.getByID(con, 1);
+        assertEquals(1, contrat.getLoueurID());
+    }
+
+   
 }

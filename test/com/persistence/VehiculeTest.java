@@ -515,4 +515,14 @@ public class VehiculeTest {
         assertEquals(8, id);
     }
 
+    /**
+     * Test of getByID method, of class Vehicule.
+     */
+    @Test
+    public void testGetByID() throws Exception {
+        System.out.println("getByID");
+        Connection con = ConnexionMySQL.newConnexion();
+        Vehicule result = Vehicule.getByID(con, 1);
+        assertEquals("ED-592-CY", result.getImmatriculation());
+    }
 }

@@ -74,6 +74,28 @@ public class Contrat {
     }
     
     /**
+     * Retourne un loueur trouve par son nom et prénom, saved is true
+     * @param con
+     * @param  id
+     * @return contrat trouvé par id
+     * @throws java.lang.Exception
+     */
+    public static Contrat getByID(Connection con, int id) throws Exception {
+        String queryString = "select * from contrat"
+            + " where ID='" + id + "';";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        if (lResult.next()) {
+            return creerParRequete(lResult);
+        }
+        else
+            return null;
+    }
+    
+    /**
      * suppression de l'objet contrat dans la BD
      * @param con
      * @return 
