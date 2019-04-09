@@ -107,6 +107,21 @@ public class Loueur {
         else
             return null;
     }
+    
+    public static Loueur getByContratID(Connection con, String IDContrat) throws Exception {
+        String queryString = "SELECT * FROM loueur JOIN contrat ON loueur.ID = contrat.LoueurID WHERE Numero = '" + IDContrat + "'";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        if (lResult.next()) {
+              return creerParRequete(lResult);
+        }
+        else {
+            return null;
+        }
+    }
  
     /**
      * suppression de l'objet loueur dans la BD
@@ -124,11 +139,11 @@ public class Loueur {
     }
     
     private static Loueur creerParRequete(ResultSet result) throws Exception {
-            String    lNom  = result.getString("Nom");
-            String    lPrenom = result.getString("Prenom");
-            String    lTelephone = result.getString("Telephone");
-            String    lMail = result.getString("Mail");
-            return    new Loueur(lNom,lPrenom, lTelephone, lMail);
+        String    lNom  = result.getString("Nom");
+        String    lPrenom = result.getString("Prenom");
+        String    lTelephone = result.getString("Telephone");
+        String    lMail = result.getString("Mail");
+        return    new Loueur(lNom,lPrenom, lTelephone, lMail);
     }
     
     /**

@@ -47,84 +47,92 @@
                     <h1>Page de gestion du parc</h1>
                     <br/><br/><br/>
                 </center>
-            </div> 	
-            <div data-role="tabs" id="tabs">
-                <div data-role="navbar">
-                    <ul  class="tablist-left">
-                        <li><a href="#one" data-ajax="false">Contrat</a></li>
-                        <li><a href="#two" data-ajax="false">Véhicule</a></li>
-                        <li><a href="#three" data-ajax="false">Loueur</a></li>
-                    </ul>
-                </div>
-                <%
-                    ArrayList<String> immatriculations = Vehicule.getImmatriculations(con);
-                    Vehicule vehicule = Vehicule.getByImmatriculation(con, immatriculations.get(0));
-                    // recup la taile des bases de données
-                    int nbV = Vehicule.size(con);
-                    int nbC = Contrat.size(con);
-                    int nbL = Loueur.size(con);
-                    // recup l'immatriculation des véhicules
-                    ArrayList<DonneesTR> donnees = DonneesTR.getByDate(con, vehicule.getImmatriculation(), "2018-03-20");
-                    ArrayList<String> numero = Contrat.getNumeros(con);
-                    
-                %>
-                <%----   Script des Popups et selection de ligne  ----%>
+            </div>
+                <div data-role="tabs" id="tabs">
+                    <div data-role="navbar">
+                        <ul  class="tablist-left">
+                            <li><a href="#one" data-ajax="false">Contrat</a></li>
+                            <li><a href="#two" data-ajax="false">Véhicule</a></li>
+                            <li><a href="#three" data-ajax="false">Loueur</a></li>
+                        </ul>
+                    </div>
+                    <%
+                        ArrayList<String> immatriculations = Vehicule.getImmatriculations(con);
+                        Vehicule vehicule = Vehicule.getByImmatriculation(con, immatriculations.get(0));
+                        // recup la taile des bases de données
+                        int nbV = Vehicule.size(con);
+                        int nbC = Contrat.size(con);
+                        int nbL = Loueur.size(con);
+                        // recup l'immatriculation des véhicules
+                        ArrayList<DonneesTR> donnees = DonneesTR.getByDate(con, vehicule.getImmatriculation(), "2018-03-20");
+                        ArrayList<String> numero = Contrat.getNumeros(con);
+
+                    %>
+                    <%----   Script des Popups et selection de ligne  ----%>
                     <div id="one" class="ui-body-d tablist-content">
                         <%---    btn d'ajout de contrat ----%>
                         <div id="btnAddContact" class="ui-nodisc-icon"><!-- Class added to the wrapper -->
                             <a href="#AddContactPop" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-b ui-btn-inline" 
                                data-transition="pop" data-position-to="window"></a>
                             <div data-role="popup" id="AddContactPop" data-dismissible="false">
-                                    <div style="padding:10px 20px;">
-                                        <h3>Nouveau Contrat</h3>
-                                        <div class="ui-field-contain">
-                                            <select name="Loueur" id="select-Loueur">
-                                                   <option>Loueur</option>
-                                                   <option value="1">Loueur A</option>
-                                                   <option value="2">Loueur B</option>
-                                                   <option value="3">Loueur C</option>
-                                            </select>
-                                        </div>
-                                        <div class="ui-field-contain">
-                                            <select name="MContrat" id="select-MContrat">
-                                                   <option>Modele Contrat</option>
-                                                   <option value="1">annuel</option>
-                                                   <option value="2">semi-annuel</option>
-                                                   <option value="3">mensuelle</option>
-                                            </select>
-                                        </div>
-                                        <label for="un" class="ui-hidden-accessible">Infos</label>
-                                        <label for="infos-1">Infos</label>
-                                        <textarea name="infos-1" id="infos-1"></textarea>
-                                            <div class="ui-field-contain">
-                                                <select name="Model" id="select-Immatricualtion">
-                                                    <option>Immatriculation</option>
-                                        <%                                            for (int i = 0; nbV > i; i++) {
-                                        %><option value="
-                                                <% out.print(i); %>
-                                                ">
-                                            <%
-                                                    out.print(immatriculations.get(i));
-                                                }
-                                            %>
-                                        </option>
-                                                </select>
-                                            </div>
-                                        <form>
-                                            <div class="ui-field-contain">
-                                                <select name="ZoneLimite" id="select-ZoneLimite">
-                                                      <option>Zone Limite</option>
-                                                      <option value="1">Zone 1</option>
-                                                      <option value="2">Zone 2</option>
-                                                      <option value="3">Zone 3</option>
-                                                </select>
-                                            </div>
-                                        </form>
-                                        <form data-theme="b" id="btn-popup">
-                                            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
-                                            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Créer</a>
-                                        </form>
+                                <div style="padding:10px 20px;">
+                                    <h3>Nouveau Contrat</h3>
+                                    <div class="ui-field-contain">
+                                        <select name="Model" id="select-CLoueur">
+                                            <option>Loueur</option>
+                                            <%                                            for (int i = 0; i < nbL; i++) {
+                                            %><option value="
+                                                    <% out.print(i); %>
+                                                    ">
+                                                <%
+                                                        Loueur l = Loueur.getById(con, i + 1);
+                                                        out.print(l.getPrenom() + " " + l.getNom());
+                                                    }
+                                                %>
+                                            </option>
+                                        </select>
                                     </div>
+                                    <div class="ui-field-contain">
+                                        <select name="MContrat" id="select-MContrat">
+                                               <option>Modele Contrat</option>
+                                               <option value="1">annuel</option>
+                                               <option value="2">semi-annuel</option>
+                                               <option value="3">mensuelle</option>
+                                        </select>
+                                    </div>
+                                    <label id="InfosContrat" for="un" class="ui-hidden-accessible">Infos</label>
+                                    <label for="infos-1">Infos</label>
+                                    <textarea name="infos-1" id="Cinfos-1"></textarea>
+                                    <div class="ui-field-contain">
+                                        <select name="Model" id="select-CImmatricualtion">
+                                            <option>Immatriculation</option>
+                                            <%
+                                                for (int i = 0; nbV > i; i++) {
+                                            %><option value="
+                                                    <% out.print(i); %>
+                                                    ">
+                                                <%
+                                                        out.print(immatriculations.get(i));
+                                                    }
+                                                %>
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <form>
+                                        <div class="ui-field-contain">
+                                            <select name="ZoneLimite" id="select-CZoneLimite">
+                                                  <option>Zone Limite</option>
+                                                  <option value="1">Zone 1</option>
+                                                  <option value="2">Zone 2</option>
+                                                  <option value="3">Zone 3</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                    <form data-theme="b" id="btn-popup">
+                                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
+                                        <a href="CreateContrat" onclick="creerContrat.bind()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Créer</a>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <%---- Tableau Contrat ----%> 
@@ -144,52 +152,53 @@
                             </thead>
                             <tbody id="infosTR"><%// recup la liste des Contrat
                                 for (int i = 0; i < nbC; i++) {
+                                    Contrat c = Contrat.getByNumero(con, numero.get(i));
+                                    Loueur l = Loueur.getByContratID(con, numero.get(i));
 
-                                    Contrat c = Contrat.getByNumero(con, numero.get(i));;
                                     out.print("<tr><td>" + c.getNumero());
                                     out.print("<td>" + c.getDate());
                                     out.print("<td>" + c.getType());
                                     out.print("<td>" + c.getInfos());
-                                    out.print("<td>" + "prenom");
-                                    out.print("<td>" + "nom");
+                                    out.print("<td>" + l.getPrenom());
+                                    out.print("<td>" + l.getNom());
                                     out.print("<td>" + immatriculations.get(i));
                                     out.print("<td>" + c.getZoneLimiteID());
                                     out.print("<td>"); %>
                                 <%----  Btn de Modification dans le tableau Contrat  ---%>
-                            <div id="btnModifContrat"class="ui-nodisc-icon"><!-- Class added to the wrapper -->
+                            <div id="btnModifContrat" class="ui-nodisc-icon"><!-- Class added to the wrapper -->
                                 <%--- Btn de Modification du Contrat ---%>
                                 <a href="#btnContratEdit" data-rel="popup" data-position-to="window" 
                                    class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-edit ui-btn-icon-left ui-btn-a" 
                                    data-transition="pop"></a>
                                 <div data-role="popup" id="btnContratEdit" data-theme="a" class="ui-corner-all" data-dismissible="false">
-                                        <div style="padding:10px 20px;">
-                                            <h3>Modification</h3>
-                                                <div class="ui-field-contain">
-                                                    <select name="immatriculation" id="select-Immatricualtion">
-                                                        <option>Immatriculation</option>
-                                            <%
-                                                for (int mci = 0; nbV > mci; mci++) {
-                                            %><option value="<% out.print(mci); %>">
+                                    <div style="padding:10px 20px;">
+                                        <h3>Modification</h3>
+                                        <div class="ui-field-contain">
+                                            <select name="immatriculation" id="select-Immatricualtion">
+                                                <option>Immatriculation</option>
                                                 <%
-                                                        out.print(immatriculations.get(mci));
-                                                    }
-                                                %>
-                                            </option>
-                                                    </select>
-                                                </div>
-                                                <div class="ui-field-contain">
-                                                    <select name="ZoneLimite" id="select-ZoneLimite">
-                                                           <option>Zone Limite</option>
-                                                           <option value="1">Zone 1</option>
-                                                          <option value="2">Zone 2</option>
-                                                           <option value="3">Zone 3</option>
-                                                    </select>
-                                                </div>
-                                            <label for="infos-1">Infos</label>
-                                            <textarea name="infos-1" id="infos-1"></textarea>
-                                            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
-                                            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Modifier</a>
+                                                    for (int mci = 0; nbV > mci; mci++) {
+                                                %><option value="<% out.print(mci); %>">
+                                                    <%
+                                                            out.print(immatriculations.get(mci));
+                                                        }
+                                                    %>
+                                                </option>
+                                            </select>
                                         </div>
+                                        <div class="ui-field-contain">
+                                            <select name="ZoneLimite" id="select-ZoneLimite">
+                                                   <option>Zone Limite</option>
+                                                   <option value="1">Zone 1</option>
+                                                  <option value="2">Zone 2</option>
+                                                   <option value="3">Zone 3</option>
+                                            </select>
+                                        </div>
+                                        <label for="infos-1">Infos</label>
+                                        <textarea name="infos-1" id="infos-1"></textarea>
+                                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
+                                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Modifier</a>
+                                    </div>
                                 </div>
                                 <%---- btn de Suppression de contrat-----%>
                                 <a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-shadow ui-btn-inline
@@ -201,10 +210,10 @@
                                     <div role="main" class="ui-content" >
                                         <h3 class="ui-title">Est vous sur de vouloir supprimer le contrat ?</h3>
                                         <center>
-                                            <label for="prenom" disabled="disabled" >Loueur: Jean Bon</label>
+                                            <label for="select-Loueur" disabled="disabled" >Loueur: Jean Bon</label>
                                             <label for="Immatriculation" disabled="disabled"> Immatriculation: ED-4886-FD</label>
-                                            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Non</a>
-                                            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Oui</a>
+                                            <a href="#"  class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Non</a>
+                                            <a href="#" onclick="deleteContrat.bind(null, '<%out.print(numero.get(i));%>')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Oui</a>
                                         </center>
                                     </div>
                                 </div>
@@ -320,130 +329,130 @@
                                    class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-edit ui-btn-icon-left ui-btn-a" 
                                    data-transition="pop"></a>
                                 <div data-role="popup" id="btnVehiculeEdit" data-theme="a" class="ui-corner-all" data-dismissible="false">
-                                        <div style="padding:10px 20px;">
-                                            <h3>Modification</h3>
-                                                <div class="ui-field-contain">
-                                                </div>
-                                                <div class="ui-field-contain">
-                                                    <select name="ZoneLimite" id="select-ZoneLimite">
-                                                           <option>Zone Limite</option>
-                                                           <option value="1">Zone 1</option>
-                                                          <option value="2">Zone 2</option>
-                                                           <option value="3">Zone 3</option>
-                                                    </select>
-                                                </div>
-                                            <label for="infos-1">Infos</label>
-                                            <textarea name="infos-1" id="infos-1"></textarea>
-                                            <label for="date-1">Date de vidange:</label>
-                                            <input type="date" data-clear-btn="false" name="date-1" id="date-1" value="">
-                                            <label for="date-1">Date du Control technique:</label>
-                                            <input type="date" data-clear-btn="false" name="dateCT-1" id="dateCT-1" value="">
-                                            <div class="ui-field-contain">
-                                                <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
-                                                <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Modifier</a>
-                                            </div>
-                                </div>
-                                <%
-                                    }
-                                %>
-                                </tbody>
-                        </table>
-                    </div> 
-                    <div id="three" class="ui-body-d tablist-content">
-                        <%----- btn d'ajout d'utilisateurs ----%>
-                        <div id="btnAddLoueur" class="ui-nodisc-icon"><!-- Class added to the wrapper -->
-                            <a href="#AddLoueurPop" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-b ui-btn-inline"
-                               data-transition="pop" data-position-to="window"></a>
-                            <div data-role="popup" id="AddLoueurPop" data-dismissible="false">
-                                <form>
                                     <div style="padding:10px 20px;">
-                                        <h3>Nouveau Contrat</h3>
-                                        <label for="Nom">Nom</label>
-                                        <textarea name="Nom" id="Prenom"></textarea>
-                                        <label for="Nom">Prenom</label>
-                                        <textarea name="Prenom" id="Prenom"></textarea>
-                                        <label for="Nom">E-mail</label>
-                                        <textarea name="E-mail" id="E-mail"></textarea>
-                                        <label for="NTel">N° de Téléphone</label>
-                                        <textarea name="NTel" id="NTel"></textarea>
-                                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
-                                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Créer</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <%---- Tableau des Loueurs ----%>
-                        <table id="tabGestion" data-role="table" id="movie-table-custom" data-mode="reflow" class="table-stripe movie-list ui-responsive">
-                            <thead>
-                                <tr>
-                                    <th data-priority="3">Nom</th>
-                                    <th data-priority="2">Prenom</th>
-                                    <th data-priority="4">e-mail</th>
-                                    <th data-priority="5">N° de Téléphone</th>
-                                    <th data-priority="8">&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody id="infosTR"><%
-                                // recup la liste des loueurs
-                                for (int i = 0; i < nbL; i++) {
-                                    Loueur l = Loueur.getById(con, i+1);
-                                    out.print("<tr><td>" + l.getNom());
-                                            out.print("<td>" + l.getPrenom());
-                                            out.print("<td>" + l.getMail());
-                                    out.print("<td>" + l.getTelephone());
-                                    out.print("<td>");
-                                %>
-                                <%----  Btn de Modification dans le tableau Loueur  ---%>
-                            <div id="btnModifLoueur"class="ui-nodisc-icon"><!-- Class added to the wrapper -->
-                                <%--- Btn de Modification du Loueur ---%>
-                                <a href="#btnLoueurEdit" data-rel="popup" data-position-to="window" 
-                                   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-edit ui-btn-icon-left ui-btn-a" 
-                                   data-transition="pop"></a>
-                                <div data-role="popup" id="btnLoueurEdit" data-theme="a" class="ui-corner-all" data-dismissible="false">
-                                        <div style="padding:10px 20px;">
-                                            <h3>Modification</h3>
-                                            <label for="Nom">Nom</label>
-                                            <textarea name="Nom" id="Prenom"></textarea>
-                                            <label for="Nom">Prenom</label>
-                                            <textarea name="Prenom" id="Prenom"></textarea>
-                                            <div>
-                                                <label class="Mail">Mail</label> 
-                                                <input class="controle" type="email" name="mail" required placeholder="mail@serveur.com"> 
-                                                <span class="resultat"></span>
-                                            </div>
-                                            <div>
-                                                <label for="phone">N° de Télephone</label>
-                                                    <input id="phone" type="number" pattern="[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]" placeholder="0605040302">
-                                                    <input type="submit" value="OK">
-                                            </div>
+                                        <h3>Modification</h3>
+                                        <div class="ui-field-contain">
+                                        </div>
+                                        <div class="ui-field-contain">
+                                            <select name="ZoneLimite" id="select-ZoneLimite">
+                                                   <option>Zone Limite</option>
+                                                   <option value="1">Zone 1</option>
+                                                  <option value="2">Zone 2</option>
+                                                   <option value="3">Zone 3</option>
+                                            </select>
+                                        </div>
+                                        <label for="infos-1">Infos</label>
+                                        <textarea name="infos-1" id="infos-1"></textarea>
+                                        <label for="date-1">Date de vidange:</label>
+                                        <input type="date" data-clear-btn="false" name="date-1" id="date-1" value="">
+                                        <label for="date-1">Date du Control technique:</label>
+                                        <input type="date" data-clear-btn="false" name="dateCT-1" id="dateCT-1" value="">
+                                        <div class="ui-field-contain">
                                             <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
                                             <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Modifier</a>
                                         </div>
-                                </div>
-                                <%---- btn de Suppression de véhicule-----%>
-                                <a href="#BtnSupprL" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-shadow
-                                   ui-btn-inline ui-icon-delete ui-btn-i ui-btn-icon-left ui-btn-b"></a>
-                                <div data-role="popup" id="BtnSupprL" data-overlay-theme="b" data-theme="b" data-dismissible="false">
-                                    <div data-role="header" data-theme="b">
-                                        <h1>Supprimer le Loueur ?</h1>
                                     </div>
-                                    <div role="main" class="ui-content" >
-                                        <h3 class="ui-title">Est vous sur de vouloir supprimer le Loueur ?</h3>
-                                        <center>
-                                            <label for="PLoueur" disabled="disabled"> Prénom:  Jean</label>
-                                            <label for="NLoueur" disabled="disabled"> Nom:  Bon</label>
-                                            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Non</a>
-                                            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Oui</a>
-                                        </center>
+                                    <%
+                                        }
+                                    %>
+                                    </tbody>
+                                    </table>
+                                </div> 
+                                <div id="three" class="ui-body-d tablist-content">
+                                    <%----- btn d'ajout d'utilisateurs ----%>
+                                    <div id="btnAddLoueur" class="ui-nodisc-icon"><!-- Class added to the wrapper -->
+                                        <a href="#AddLoueurPop" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-b ui-btn-inline"
+                                           data-transition="pop" data-position-to="window"></a>
+                                        <div data-role="popup" id="AddLoueurPop" data-dismissible="false">
+                                            <form>
+                                                <div style="padding:10px 20px;">
+                                                    <h3>Nouveau Contrat</h3>
+                                                    <label for="Nom">Nom</label>
+                                                    <textarea name="Nom" id="Prenom"></textarea>
+                                                    <label for="Nom">Prenom</label>
+                                                    <textarea name="Prenom" id="Prenom"></textarea>
+                                                    <label for="Nom">E-mail</label>
+                                                    <textarea name="E-mail" id="E-mail"></textarea>
+                                                    <label for="NTel">N° de Téléphone</label>
+                                                    <textarea name="NTel" id="NTel"></textarea>
+                                                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
+                                                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Créer</a>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
+                                    <%---- Tableau des Loueurs ----%>
+                                    <table id="tabGestion" data-role="table" id="movie-table-custom" data-mode="reflow" class="table-stripe movie-list ui-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th data-priority="3">Nom</th>
+                                                <th data-priority="2">Prenom</th>
+                                                <th data-priority="4">e-mail</th>
+                                                <th data-priority="5">N° de Téléphone</th>
+                                                <th data-priority="8">&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="infosTR"><%
+                                            // recup la liste des loueurs
+                                            for (int i = 0; i < nbL; i++) {
+                                                Loueur l = Loueur.getById(con, i + 1);
+                                                out.print("<tr><td>" + l.getNom());
+                                                out.print("<td>" + l.getPrenom());
+                                                out.print("<td>" + l.getMail());
+                                                out.print("<td>" + l.getTelephone());
+                                                out.print("<td>");
+                                            %>
+                                            <%----  Btn de Modification dans le tableau Loueur  ---%>
+                                        <div id="btnModifLoueur"class="ui-nodisc-icon"><!-- Class added to the wrapper -->
+                                            <%--- Btn de Modification du Loueur ---%>
+                                            <a href="#btnLoueurEdit" data-rel="popup" data-position-to="window" 
+                                               class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-edit ui-btn-icon-left ui-btn-a" 
+                                               data-transition="pop"></a>
+                                            <div data-role="popup" id="btnLoueurEdit" data-theme="a" class="ui-corner-all" data-dismissible="false">
+                                                <div style="padding:10px 20px;">
+                                                    <h3>Modification</h3>
+                                                    <label for="Nom">Nom</label>
+                                                    <textarea name="Nom" id="Prenom"></textarea>
+                                                    <label for="Nom">Prenom</label>
+                                                    <textarea name="Prenom" id="Prenom"></textarea>
+                                                    <div>
+                                                        <label class="Mail">Mail</label> 
+                                                        <input class="controle" type="email" name="mail" required placeholder="mail@serveur.com"> 
+                                                        <span class="resultat"></span>
+                                                    </div>
+                                                    <div>
+                                                        <label for="phone">N° de Télephone</label>
+                                                        <input id="phone" type="number" pattern="[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]" placeholder="0605040302">
+                                                        <input type="submit" value="OK">
+                                                    </div>
+                                                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
+                                                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Modifier</a>
+                                                </div>
+                                            </div>
+                                            <%---- btn de Suppression de véhicule-----%>
+                                            <a href="#BtnSupprL" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-shadow
+                                               ui-btn-inline ui-icon-delete ui-btn-i ui-btn-icon-left ui-btn-b"></a>
+                                            <div data-role="popup" id="BtnSupprL" data-overlay-theme="b" data-theme="b" data-dismissible="false">
+                                                <div data-role="header" data-theme="b">
+                                                    <h1>Supprimer le Loueur ?</h1>
+                                                </div>
+                                                <div role="main" class="ui-content" >
+                                                    <h3 class="ui-title">Est vous sur de vouloir supprimer le Loueur ?</h3>
+                                                    <center>
+                                                        <label for="PLoueur" disabled="disabled"> Prénom:  Jean</label>
+                                                        <label for="NLoueur" disabled="disabled"> Nom:  Bon</label>
+                                                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Non</a>
+                                                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Oui</a>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                            <%}
+                                            %>
+                                            </tbody>
+                                    </table>
                                 </div>
-                                <%}
-                                %>
-                                </tbody>
-                        </table>
+                            </div>
+                            <%@include file="/includes/footer.jspf" %>
                     </div>
-            </div>
-            <%@include file="/includes/footer.jspf" %>
-        </div>
-    </body>
-</html>
+                    </body>
+                    </html>

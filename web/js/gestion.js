@@ -1,3 +1,10 @@
+import=com.persistence.Vehicule;
+import=com.persistence.DonneesTR;
+import=com.persistence.Loueur;
+import=com.persistence.Contrat;
+
+import=WEB-INF.r_gestion;
+
 ( function( $, undefined ) {
 // Eventually, the real handleLink function should pass the coordinates and
 // size of the rectangle representing the origin into popup's "open" method, or
@@ -118,4 +125,35 @@ $(document).ready(function() {
 
 });
 
+function deleteContrat (idContrat) {
+    console.log (idContrat);
+}
+ 
+function creerContrat() {
+    Numero = Contrat.getByNumero(con, numero.get(i)) + 1;
+    DateCreation = todaydate();
+    Modele = document.getElementById('select-MContrat');
+    Infos = document.getElementById('Cinfos-1');
+    LoueurID = document.getElementById('');
+    VehiculeID = document.getElementById('select-CImmatricualtion');
+    ZoneLimiteID= document.getElementById('select-CZoneLimite');
 
+    Contrat.create(Numero, DateCreation, Modele, Infos, LoueurID, VehiculeID, ZoneLimiteID);
+}
+
+function todaydate(){   
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = yyyy + '/' + mm + '/' + dd;
+    document.write(today);
+}
