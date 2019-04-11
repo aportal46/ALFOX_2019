@@ -82,6 +82,19 @@ public class Vehicule {
         lStat.executeUpdate(queryString, Statement.NO_GENERATED_KEYS);
         return vehicule;
     }
+    
+    public static ArrayList<Vehicule> getList (Connection con) throws Exception {
+        String queryString = "select * from vehicule";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        ArrayList<Vehicule> vehicules = new ArrayList<>();
+        while (lResult.next ()) {
+            vehicules.add (creerParRequete (lResult));
+        }
+        return vehicules;
+    }
 
     /**
      * update de l'objet vehicule dans la ConnexionMySQL
@@ -116,9 +129,8 @@ public class Vehicule {
      * @return
      * @throws SQLException impossible d'accéder à la ConnexionMySQL
      */
-    public boolean delete(Connection con) throws Exception {
-        String queryString = "delete from vehicule"
-                + " where Immatriculation='" + immatriculation + "'";
+    public static boolean delete(Connection con,String immatriculation) throws Exception {
+        String queryString = "delete from vehicule where Immatriculation='" + immatriculation + "'";
         Statement lStat = con.createStatement();
         lStat.executeUpdate(queryString);
         return true;
