@@ -23,7 +23,7 @@
     String action = request.getParameter("action");
     User user = (User) session.getAttribute("user");
     String callBackType = request.getParameter("callBackType");
-    
+
     // --------------------------------------------------------------------
     //               Traitement des callbacks
     // --------------------------------------------------------------------
@@ -31,14 +31,12 @@
         String sigfoxID = request.getParameter("id");
         if (Boitier.getByID(con, sigfoxID) != null) {
             request.getRequestDispatcher("WEB-INF/callback.jsp").forward(request, response);
-        }
-        else {
+        } else {
             // l'ID du boitier est inconnu, c'est pas normal
             // as de callback et on ne renvoie rien !!!
             return;
         }
-    }                  
-    else {
+    } else {
         // --------------------------------------------------------------------
         if (user == null) {    // user non connecté
             if (action.equals("login_req")) {
@@ -50,8 +48,7 @@
             if (user.getRole().equals("responsable")) {
                 if (action == null) {           // rafraichissement de la page courante
                     request.getRequestDispatcher("WEB-INF/r_accueil.jsp").forward(request, response);
-                }
-                else if (action.equals("accueil")) {
+                } else if (action.equals("accueil")) {
                     request.getRequestDispatcher("WEB-INF/r_accueil.jsp").forward(request, response);
                 } else if (action.equals("localisation")) {
                     request.getRequestDispatcher("WEB-INF/r_localisation.jsp").forward(request, response);
@@ -70,22 +67,23 @@
                 } else if (action.equals("r_getVehiculesTR")) {
                     request.getRequestDispatcher("WEB-INF/ajax_getVehiculesTR.jsp").forward(request, response);
                 } else if (action.equals("r_getZones")) {
-                    request.getRequestDispatcher("WEB-INF/ajax_getZones.jsp").forward(request, response); 
-                } else if (action.equals("r_delete")) {
-                    request.getRequestDispatcher ("WEB-INF/ajax_delete.jsp").forward(request, response);
+                    request.getRequestDispatcher("WEB-INF/ajax_getZones.jsp").forward(request, response);
+                }else if (action.equals("r_EditSection")) {
+                    request.getRequestDispatcher("WEB-INF/ajax_EditSection.jsp").forward(request, response);
+                }else if (action.equals("r_delete")) {
+                    request.getRequestDispatcher("WEB-INF/ajax_delete.jsp").forward(request, response);
+                } else if (action.equals("r_creerSection")) {
+                    request.getRequestDispatcher("WEB-INF/ajax_creerSection.jsp").forward(request, response);
                 } else if (action.equals("logout")) {
                     session.invalidate();   // fermeture de la session (plus de user ni de connexion)
                     request.getRequestDispatcher("index.jsp").forward(request, response);
-                }
-                else {  // rafraichissement de la page
+                } else {  // rafraichissement de la page
                     request.getRequestDispatcher("WEB-INF/r_accueil.jsp").forward(request, response);
                 }
-            }
-            else {
+            } else {
                 if (action == null) {           // rafraichissement de la page courante
                     request.getRequestDispatcher("WEB-INF/m_accueil.jsp").forward(request, response);
-                }
-                else if (action.equals("accueil")) {
+                } else if (action.equals("accueil")) {
                     request.getRequestDispatcher("WEB-INF/m_accueil.jsp").forward(request, response);
                 } else if (action.equals("localisation")) {
                     request.getRequestDispatcher("WEB-INF/r_localisation.jsp").forward(request, response);
@@ -96,8 +94,7 @@
                 } else if (action.equals("logout")) {
                     session.invalidate();   // fermeture de la session (plus de user ni de connexion)
                     request.getRequestDispatcher("index.jsp").forward(request, response);
-                }
-                else {  // rafraichissement de la page
+                } else {  // rafraichissement de la page
                     request.getRequestDispatcher("WEB-INF/m_accueil.jsp").forward(request, response);
                 }
             }

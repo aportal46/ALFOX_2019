@@ -1,137 +1,9 @@
-/*
-import=com.persistence.Vehicule;
-import=com.persistence.DonneesTR;
-import=com.persistence.Loueur;
-import=com.persistence.Contrat;
-
-import=WEB-INF.r_gestion;
-
-( function( $, undefined ) {
-// Eventually, the real handleLink function should pass the coordinates and
-// size of the rectangle representing the origin into popup's "open" method, or
-// maybe the origin itself, instead of merely the midpoint of it. Here, the
-// origin (link) is saved in lastLink, and appended to the options in the
-// overridden version of open. Thankfully, JS is not multithreaded. Hooray!
-var lastLink,
-    origHandleLink = $.mobile.popup.handleLink,
-    handleLink = function( link ) {
-        lastLink = link;
-        return origHandleLink.apply( this, arguments );
-    };
-$.mobile.popup.handleLink = handleLink;
-$.widget( "mobile.popup", $.mobile.popup, {
-    options: {
-        align: "0.5,0.5"
-    },
-    open: function( options ) {
-        this._ui.link = lastLink;
-        return this._super( options );
-    },
-    _closePrereqsDone: function() {
-        this._ui.link = null;
-        this._superApply( arguments );
-    },
-    _alignmentToCoeffs: function( alignment ) {
-        return {
-            originCoeff:
-                alignment < 0 ? 0 :
-                alignment <= 1 ? alignment :
-                1,
-            popupCoeff:
-                alignment < 0 ? alignment :
-                alignment <= 1 ? -alignment :
-                alignment - 2
-        };
-    },
-    _getAlignment: function() {
-        var ar, align;
-        if ( this.options.align ) {
-            ar = this.options.align.split( "," );
-        }
-        if ( ar && ar.length > 0 ) {
-            align = {
-                x: parseFloat( ar[ 0 ] ),
-                y: ar.length > 1 ? parseFloat( ar[ 1 ] ) : align.x
-            };
-        }
-        if ( align && !( isNaN( align.x ) || isNaN( align.y ) ) ) {
-            return {
-                x: this._alignmentToCoeffs( align.x ),
-                y: this._alignmentToCoeffs( align.y )
-            };
-        }
-    },
-    _setOptions: function( options ) {
-        var linkOffset, linkSize;
-        this._super( options );
-        if ( this._isOpen &&
-            options.align !== undefined &&
-            this._ui.link !== null &&
-            ( this._ui.link.jqmData( "position-to" ) === "origin" ||
-                this.options.positionTo === "origin" ) ) {
-            linkOffset = this._ui.link.offset();
-            linkSize = {
-                cx: this._ui.link.outerWidth(),
-                cy: this._ui.link.outerHeight()
-            };
-            this._reposition({
-                x: linkOffset.left + linkSize.cx / 2,
-                y: linkOffset.top + linkSize.cy / 2,
-                positionTo: "origin"
-            });
-        }
-    },
-    _alignedCoord: function( start, coeffs, originSize, popupSize ) {
-        return (
-            // Start at the origin
-            start +
-            // Apply lignment
-            coeffs.originCoeff * originSize + coeffs.popupCoeff * popupSize +
-            // Resulting coordinate needs to be that of the middle of the popup, so
-            // add half a popup width
-            popupSize / 2 );
-    },
-    _desiredCoords: function( options ) {
-        var linkBox, offset, clampInfo,
-            alignment = this._getAlignment();
-        if ( alignment && options.positionTo === "origin" && this._ui.link ) {
-            // Grab the size of the popup and the offset and size of the link
-            clampInfo = this._clampPopupWidth( true );
-            clampInfo.menuSize.cx = Math.min( clampInfo.menuSize.cx, clampInfo.rc.cx );
-            offset = this._ui.link.offset();
-            linkBox = {
-                x: offset.left,
-                y: offset.top,
-                cx: this._ui.link.outerWidth(),
-                cy: this._ui.link.outerHeight()
-            };
-            // Determine the desired coordinates of the middle of the popup
-            options.x = this._alignedCoord( linkBox.x, alignment.x, linkBox.cx, clampInfo.menuSize.cx );
-            options.y = this._alignedCoord( linkBox.y, alignment.y, linkBox.cy, clampInfo.menuSize.cy );
-        }
-        return this._super( options );
-    }
-});
-})( jQuery );
-
-
-$(document).ready(function() {
-
-    $('#tabGestion tr').click(function() {
-        var href = $(this).find("a").attr("href");
-        if(href) {
-            window.location = href;
-        }
-    });
-
-});
-*/
 function deleteData (id, type) {
     $.ajax({
         url: 'alfoxControl.jsp?action=r_delete',
         type: 'POST',
         data: {
-            idContrat: id,
+            id: id,
             type: type
         },
         dataType: 'html',
@@ -140,9 +12,148 @@ function deleteData (id, type) {
         }
     });
 }
- 
-function creerContrat() {
-}
+
+const popupNvContrat = {
+    CLoueur: "",
+    MContrat: "",
+    Cinfos: "",
+    Cimmatriculation: "",
+    CZoneLimite: "",
+    init () {
+        document.getElementById ("select-CLoueur").onchange = e => {
+            this.CLoueur = e.target.value;
+        };
+        document.getElementById ("select-MContrat").onchange =e => {
+            this.MContrat = e.target.value;
+        };
+        document.getElementById ("Cinfos").onchange = e => {
+            this.Cinfos = e.target.value;
+        };
+        document.getElementById ("select-CImmatricualtion").onchange = e => {
+            this.Cimmatriculation = e.target.value;
+        };
+        document.getElementById ("select-CZoneLimite").onchange = e =>  {
+            this.CZoneLimite = e.target.value;
+        };
+    },
+    creerContrat () {
+        const that = this;
+        $.ajax({
+            url: 'alfoxControl.jsp?action=r_creerSection',
+            type: 'POST',
+            data: {
+                type: "contrat",
+                CLoueur: that.CLoueur,
+                MContrat: that.MContrat,
+                Cinfos: that.Cinfos,
+                Cimmatriculation: that.Cimmatriculation,
+                CZoneLimite: that.CZoneLimite
+            },
+            dataType: 'html',
+            success: function (data) {
+                $( "#test2" ).load( "r_gestion #test2" );
+            }
+        });
+    }
+};
+
+const popupNvVehicule = {
+    Immatriculation: "",
+    Marque:"",
+    VModele:"",
+    dateCT:"",
+    compteurR:"",
+    Vdate:"",
+    dateMiseService:"",
+    Motorisation:"",
+    init(){
+        document.getElementById ("VImmatriculation").onchange = e => {
+            this.Immatriculation = e.target.value;
+        };
+        document.getElementById ("VMarque").onchange = e => {
+            this.Marque = e.target.value;
+        };
+        document.getElementById ("dateMiseService").onchange = e => {
+            this.dateMiseService = e.target.value;
+        };
+        document.getElementById ("VModele").onchange = e => {
+            this.VModele = e.target.value;
+        };
+        document.getElementById ("compteurR").onchange = e => {
+            this.compteurR = e.target.value;
+        };
+        document.getElementById ("dateCT").onchange = e => {
+            this.dateCT = e.target.value;
+        };
+         document.getElementById ("Vdate").onchange = e => {
+            this.Vdate = e.target.value;
+        };
+        document.getElementById ("select-Motorisation").onchange = e => {
+            this.Motorisation = e.target.value;
+        };
+    },
+    creerVehicule(){
+         const that = this;
+        $.ajax({
+            url: 'alfoxControl.jsp?action=r_creerSection',
+            type: 'POST',
+            data: {
+                
+                type: "vehicule",
+                dateMiseService : that.dateMiseService,
+                compteurR: that.compteurR,
+                Immatriculation: that.Immatriculation,
+                Marque: that.Marque,
+                VModele: that.VModele,
+                dateCT: that.dateCT,
+                Vdate: that.Vdate,
+                Motorisation: that.Motorisation
+            },
+            dataType: 'html',
+            success: function (data) {
+                $( "#test2" ).load( "r_gestion #test2" );
+            }
+        });
+    }
+};
+
+const popupNvLoueur = {
+    LPrenom: "",
+    LNom:"",
+    LEmail:"",
+    phone:"",
+    init(){
+        document.getElementById ("LNom").addEventListener('input',e => {
+            this.LNom = e.target.value;
+        });
+        document.getElementById ("LPrenom").addEventListener('input',e => {
+            this.LPrenom = e.target.value;
+        });  
+        document.getElementById ("LEmail").addEventListener('input',e => {
+            this.LEmail = e.target.value;
+        });
+        document.getElementById ("phone").addEventListener('input',e => {
+            this.phone = e.target.value;
+        });
+    },
+    creerLoueur(){ const that = this;
+        $.ajax({
+            url: 'alfoxControl.jsp?action=r_creerSection',
+            type: 'POST',
+            data: {
+                type: "loueur",
+                LPrenom: that.LPrenom,
+                LNom: that.LNom,
+                LEmail: that.LEmail,
+                phone: that.phone
+            },
+            dataType: 'html',
+            success: function (data) {
+                $( "#test2" ).load( "r_gestion #test2" );
+            }
+        });
+    }
+};
 
 function todaydate(){   
     var today = new Date();
@@ -151,12 +162,127 @@ function todaydate(){
     var yyyy = today.getFullYear();
 
     if (dd < 10) {
-        dd = '0' + dd
+        dd = '0' + dd;
     }
 
     if (mm < 10) {
-        mm = '0' + mm
+        mm = '0' + mm;
     }
     today = yyyy + '/' + mm + '/' + dd;
     document.write(today);
 }
+
+const popupEditContrat = {
+    infos: "",
+    Immatriculation: "",
+    ZoneLimite: "",
+    init () {
+        document.getElementById ("infos").onchange = e => {
+            this.infos = e.target.value;
+        };
+        document.getElementById ("select-Immatricualtion").onchange = e => {
+            this.Immatriculation = e.target.value;
+        };
+        document.getElementById ("select-ZoneLimite").onchange = e => {
+            this.ZoneLimite = e.target.value;
+        };
+    },
+    EditContrat (numero) {
+        const that = this;
+        $.ajax({
+            url: 'alfoxControl.jsp?action=r_EditSection',
+            type: 'POST',
+            data: {
+                type: "contrat",
+                infos: that.infos,
+                numero: numero,
+                Immatriculation: that.Immatriculation,
+                ZoneLimite: that.ZoneLimite
+            },
+            dataType: 'html',
+            success: function (data) {
+                $( "#test2" ).load( "r_gestion #test2" );
+            }
+        });
+    }
+};
+
+const popupEditVehicule = {
+    dateVid: "",
+    dateCT: "",
+    init () {
+        document.getElementById ("dateVid").addEventListener ('change', e => {
+            this.dateVid = e.target.value;
+        });
+        document.getElementById ("dateCT").addEventListener ('change', e => {
+            this.dateCT = e.target.value;
+        });
+    },
+    EditVehicule () {
+        const that = this;
+        $.ajax({
+            url: 'alfoxControl.jsp?action=r_EditSection',
+            type: 'POST',
+            data: {
+                type: "vehicule",
+                dateVid: that.dateVid,
+                dateCT: that.dateCT
+            },
+            dataType: 'html',
+            success: function (data) {
+                $( "#test2" ).load( "r_gestion #test2" );
+            }
+        });
+    }
+};
+
+const popupEditLoueur = {
+    Nom: "",
+    Prenom: "",
+    Email: "",
+    phone:"",
+     init(){
+        document.getElementById ("Nom").addEventListener('input',e => {
+            this.Nom = e.target.value;
+        });
+        document.getElementById ("Prenom").addEventListener('input',e => {
+            this.Prenom = e.target.value;
+        });  
+        document.getElementById ("Email").addEventListener('input',e => {
+            this.Email = e.target.value;
+        });
+        document.getElementById ("phone").addEventListener('input',e => {
+            this.phone = e.target.value;
+        });
+    },
+    EditLoueur () {
+        const that = this;
+        $.ajax({
+            url: 'alfoxControl.jsp?action=r_EditSection',
+            type: 'POST',
+            data: {
+                type: "loueur",
+                Nom: that.Nom,
+                Prenom: that.Prenom,
+                Email: that.Email,
+                phone: that.phone
+            },
+            dataType: 'html',
+            success: function (data) {
+                $( "#test2" ).load( "r_gestion #test2" );
+            }
+        });
+    }
+};
+
+
+window.onload = _ => {
+    popupNvContrat.init();
+    popupNvVehicule.init();
+    popupNvLoueur.init ();
+
+    popupEditContrat.init ();
+    popupEditVehicule.init ();
+    popupEditLoueur.init ();
+    console.log ("fin de chargement de la page html");
+};

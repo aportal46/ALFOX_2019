@@ -25,7 +25,10 @@
         Contrat.delete(con, id);
     }
     else if(type.equals("vehicule")){
-        DonneesHisto.delete(con, id);
+        Vehicule vehicule = Vehicule.getByImmatriculation(con, id);
+        String idVehicule = Integer.toString(vehicule.getID(con));  
+        DonneesTR.delete(con, idVehicule);
+        DonneesHisto.delete(con, idVehicule);
         Vehicule.delete(con, id);
     }
     else if(type.equals("loueur")){
