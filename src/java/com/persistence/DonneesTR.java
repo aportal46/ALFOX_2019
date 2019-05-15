@@ -166,7 +166,13 @@ public class DonneesTR {
         lStat.executeUpdate(queryString);
         return true;
     }
-
+        
+    public static boolean delete(Connection con,String vehiculeID) throws Exception{
+        String queryString = "delete from donneesTR where VehiculeID ='"+ vehiculeID+"';";
+        Statement lStat = con.createStatement();
+        lStat.executeUpdate(queryString);
+        return true;
+    }
     /**
      * update de l'objet donneesTR dans la ConnexionMySQL
      *

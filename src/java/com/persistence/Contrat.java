@@ -254,33 +254,6 @@ public class Contrat {
         return 0;
     } 
     
-    public static void setLimiteID (Connection con, int limiteID, String numero) throws Exception {
-        String queryString = "UPDATE contrat SET ZoneLimiteID = "
-                           + limiteID + " WHERE Numero = '" + numero + "'";
-        Statement lStat = con.createStatement(
-                               ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                               ResultSet.CONCUR_READ_ONLY);
-        lStat.executeQuery (queryString);
-    }
-    
-    public static void setVehiculeID (Connection con, int vehiculeID, String numero) throws Exception {
-        String queryString = "UPDATE contrat SET VehiculeID = " 
-                           + vehiculeID + " WHERE Numero = '" + numero + "'";
-        Statement lStat = con.createStatement(
-                               ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                               ResultSet.CONCUR_READ_ONLY);
-        lStat.executeQuery (queryString);
-    }
-    
-    public static void setInfo (Connection con, String info, String numero) throws Exception {
-        String queryString = "UPDATE contrat SET Infos = "
-                           + info + "  WHERE Numero = '" + numero + "'";
-        Statement lStat = con.createStatement(
-                               ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                               ResultSet.CONCUR_READ_ONLY);
-        lStat.executeQuery (queryString);
-    }
-    
     // --------------------- les assesseurs ----------------------------
     public String getNumero() {
         return numero;

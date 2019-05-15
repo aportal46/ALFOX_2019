@@ -173,20 +173,7 @@ function todaydate(){
 }
 
 const popupEditContrat = {
-    infos: "",
-    Immatriculation: "",
-    ZoneLimite: "",
-    init () {
-        document.getElementById ("infos").onchange = e => {
-            this.infos = e.target.value;
-        };
-        document.getElementById ("select-Immatricualtion").onchange = e => {
-            this.Immatriculation = e.target.value;
-        };
-        document.getElementById ("select-ZoneLimite").onchange = e => {
-            this.ZoneLimite = e.target.value;
-        };
-    },
+    init () {},
     EditContrat (numero) {
         const that = this;
         $.ajax({
@@ -194,10 +181,10 @@ const popupEditContrat = {
             type: 'POST',
             data: {
                 type: "contrat",
-                infos: that.infos,
+                infos: document.getElementById("infos" + numero).value,
                 numero: numero,
-                Immatriculation: that.Immatriculation,
-                ZoneLimite: that.ZoneLimite
+                Immatriculation: document.getElementById ("select-Immatricualtion" + numero).value,
+                ZoneLimite: document.getElementById ("select-ZoneLimite" + numero).value
             },
             dataType: 'html',
             success: function (data) {
@@ -208,25 +195,17 @@ const popupEditContrat = {
 };
 
 const popupEditVehicule = {
-    dateVid: "",
-    dateCT: "",
-    init () {
-        document.getElementById ("dateVid").addEventListener ('change', e => {
-            this.dateVid = e.target.value;
-        });
-        document.getElementById ("dateCT").addEventListener ('change', e => {
-            this.dateCT = e.target.value;
-        });
-    },
-    EditVehicule () {
+    init () {},
+    EditVehicule (immatriculation) {
         const that = this;
         $.ajax({
             url: 'alfoxControl.jsp?action=r_EditSection',
             type: 'POST',
             data: {
                 type: "vehicule",
-                dateVid: that.dateVid,
-                dateCT: that.dateCT
+                dateVid: document.getElementById("dateVid" + immatriculation).value,
+                dateCT: document.getElementById ("dateCT" + immatriculation).value,
+                Immatriculation: immatriculation
             },
             dataType: 'html',
             success: function (data) {
@@ -237,35 +216,16 @@ const popupEditVehicule = {
 };
 
 const popupEditLoueur = {
-    Nom: "",
-    Prenom: "",
-    Email: "",
-    phone:"",
-     init(){
-        document.getElementById ("Nom").addEventListener('input',e => {
-            this.Nom = e.target.value;
-        });
-        document.getElementById ("Prenom").addEventListener('input',e => {
-            this.Prenom = e.target.value;
-        });  
-        document.getElementById ("Email").addEventListener('input',e => {
-            this.Email = e.target.value;
-        });
-        document.getElementById ("phone").addEventListener('input',e => {
-            this.phone = e.target.value;
-        });
-    },
-    EditLoueur () {
+    EditLoueur (id) {
         const that = this;
         $.ajax({
             url: 'alfoxControl.jsp?action=r_EditSection',
             type: 'POST',
             data: {
                 type: "loueur",
-                Nom: that.Nom,
-                Prenom: that.Prenom,
-                Email: that.Email,
-                phone: that.phone
+                Email:  document.getElementById ("Email" + id).value,
+                phone:  document.getElementById ("phone" + id).value,
+                id : id
             },
             dataType: 'html',
             success: function (data) {
@@ -279,10 +239,8 @@ const popupEditLoueur = {
 window.onload = _ => {
     popupNvContrat.init();
     popupNvVehicule.init();
-    popupNvLoueur.init ();
-
+    popupNvLoueur.init();
     popupEditContrat.init ();
     popupEditVehicule.init ();
-    popupEditLoueur.init ();
     console.log ("fin de chargement de la page html");
 };
