@@ -223,6 +223,9 @@
     border-right: 1px solid #fff;
     text-align: center;
 }
+#tabGestion{
+    margin-bottom: 4em;
+}
 #tabGestion tr {
     background-color: #eee;
     border-top: 1px solid #fff;
