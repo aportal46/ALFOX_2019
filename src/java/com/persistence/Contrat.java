@@ -54,20 +54,6 @@ public class Contrat {
         return contrat;
     }
     
-    
-    public static ArrayList<Contrat> getList (Connection con) throws Exception {
-        String queryString = "select * from contrat";
-        Statement lStat = con.createStatement(
-                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                                ResultSet.CONCUR_READ_ONLY);
-        ResultSet lResult = lStat.executeQuery(queryString);
-        ArrayList<Contrat> contrats = new ArrayList<>();
-        while (lResult.next ()) {
-            contrats.add (creerParRequete (lResult));
-        }
-        return contrats;
-    }
-    
     /**
      * update de l'objet contrat dans la ConnexionMySQL
      * @param con
@@ -88,12 +74,34 @@ public class Contrat {
     }
     
     /**
+     * Retourne un loueur trouve par son nom et prénom, saved is true
+     * @param con
+     * @param  id
+     * @return contrat trouvé par id
+     * @throws java.lang.Exception
+     */
+    public static Contrat getByID(Connection con, int id) throws Exception {
+        String queryString = "select * from contrat"
+            + " where ID='" + id + "';";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        if (lResult.next()) {
+            return creerParRequete(lResult);
+        }
+        else
+            return null;
+    }
+    
+    /**
      * suppression de l'objet contrat dans la BD
      * @param con
      * @return 
      * @throws SQLException    impossible d'accéder à la ConnexionMySQL
      */
-    public static boolean delete(Connection con,String numero) throws Exception {
+    public boolean delete(Connection con) throws Exception {
         String queryString = "delete from contrat where Numero='" + numero + "'";
         Statement lStat = con.createStatement();
         lStat.executeUpdate(queryString);
@@ -228,31 +236,19 @@ public class Contrat {
             return 0;
     }
     
-    public static ArrayList<String> getNumeros(Connection con) throws Exception {
-       String queryString = "select Numero from contrat"
-                               + " order by Numero";
-       Statement lStat = con.createStatement(
-                               ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                               ResultSet.CONCUR_READ_ONLY);
-       ResultSet lResult = lStat.executeQuery(queryString);
-       ArrayList<String> lstNumero = new ArrayList<>();
-       while (lResult.next()) {
-           lstNumero.add(lResult.getString("Numero"));
-       }
-       return lstNumero;
-    }
-     
-    public static int getLastID (Connection con) throws Exception {
-        String queryString = "select ID from contrat order by ID desc limit 1";
+     public static ArrayList<String> getNumeros(Connection con) throws Exception {
+        String queryString = "select Numero from contrat"
+                                + " order by Numero";
         Statement lStat = con.createStatement(
-                               ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                               ResultSet.CONCUR_READ_ONLY);
-        ResultSet lResult = lStat.executeQuery (queryString);
-        if (lResult.next ()) {
-            return lResult.getInt("ID");
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        ArrayList<String> lstNumero = new ArrayList<>();
+        while (lResult.next()) {
+            lstNumero.add(lResult.getString("Numero"));
         }
-        return 0;
-    } 
+        return lstNumero;
+     }
     
     // --------------------- les assesseurs ----------------------------
     public String getNumero() {

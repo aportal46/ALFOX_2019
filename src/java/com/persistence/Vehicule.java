@@ -53,7 +53,7 @@ public class Vehicule {
         String immatriculation, Timestamp dateMiseEnService,
         String motorisation, Timestamp dateVidange, int kmVidange, 
         boolean horsZone, int tauxUtilisation, boolean aProbleme,
-            double compteurReel, Timestamp dateControleTechnique) throws Exception {
+        double compteurReel, Timestamp dateControleTechnique) throws Exception {
         Vehicule vehicule = new Vehicule(marque, modele, immatriculation,
             dateMiseEnService, motorisation, dateVidange,
                 kmVidange, horsZone, tauxUtilisation, aProbleme,
@@ -81,19 +81,6 @@ public class Vehicule {
         Statement lStat = con.createStatement();
         lStat.executeUpdate(queryString, Statement.NO_GENERATED_KEYS);
         return vehicule;
-    }
-    
-    public static ArrayList<Vehicule> getList (Connection con) throws Exception {
-        String queryString = "select * from vehicule";
-        Statement lStat = con.createStatement(
-                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                                ResultSet.CONCUR_READ_ONLY);
-        ResultSet lResult = lStat.executeQuery(queryString);
-        ArrayList<Vehicule> vehicules = new ArrayList<>();
-        while (lResult.next ()) {
-            vehicules.add (creerParRequete (lResult));
-        }
-        return vehicules;
     }
 
     /**
@@ -129,8 +116,9 @@ public class Vehicule {
      * @return
      * @throws SQLException impossible d'accéder à la ConnexionMySQL
      */
-    public static boolean delete(Connection con,String immatriculation) throws Exception {
-        String queryString = "delete from vehicule where Immatriculation='" + immatriculation + "'";
+    public boolean delete(Connection con) throws Exception {
+        String queryString = "delete from vehicule"
+                + " where Immatriculation='" + immatriculation + "'";
         Statement lStat = con.createStatement();
         lStat.executeUpdate(queryString);
         return true;

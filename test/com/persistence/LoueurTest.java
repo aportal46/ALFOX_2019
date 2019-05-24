@@ -189,7 +189,7 @@ public class LoueurTest {
     public void testGetByID() throws Exception {
         System.out.println("getByID");
         Connection con = ConnexionMySQL.newConnexion();
-        Loueur result = Loueur.getByID(con, 1);
+        Loueur result = Loueur.getById(con, 1);
         assertEquals("Magritte", result.getNom());
     }
 }
