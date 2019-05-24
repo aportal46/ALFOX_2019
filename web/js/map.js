@@ -299,4 +299,3 @@ function afficherTestVehicules(vehicules) {
     $("#test1").html(resultat);
 }
     
-

@@ -38,13 +38,14 @@
             DonneesTR dtr = DonneesTR.getLastByImmatriculation(con, vehicule.getImmatriculation());
             /* immatriculation mode nbDefauts position compteur consoMoy vitesseMoy regimeMoy */
             out.print(vehicule.getImmatriculation() + "||" 
-                    + dtr.getMode() + "||"
-                    + dtr.getNbDefauts() + "||"
-                    + dtr.getLatitude() + "||" + dtr.getLongitude() + "||"
-                    + dtr.getDistanceParcourue() + "||"
-                    + dtr.getConsommation() + "||"
-                    + dtr.getVitesse() + "||"
-                    + dtr.getRegime()
+                + dtr.getMode() + "||"
+                + dtr.getNbDefauts() + "||"
+                + dtr.getLatitude() + "||" + dtr.getLongitude() + "||"
+                + dtr.getDistanceParcourue() + "||"
+                + dtr.getConsommation() + "||"
+                + dtr.getVitesse() + "||"
+                + dtr.getRegime() + "||"
+                + dtr.getLatitudeGPS() + "||" + dtr.getLongitudeGPS()
             );
             out.print("##");
         }
@@ -61,7 +62,8 @@
                 + dtr.getDistanceParcourue() + "||"
                 + dtr.getConsommation() + "||"
                 + dtr.getVitesse() + "||"
-                + dtr.getRegime()
+                + dtr.getRegime() + "||"
+                + dtr.getLatitudeGPS() + "||" + dtr.getLongitudeGPS()
         );
     }
 %>
