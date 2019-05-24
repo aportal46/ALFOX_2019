@@ -58,7 +58,9 @@ function createMapAjaxCallback(data) {
             distanceParcourue : vehiculeInfos[5],
             consommation : vehiculeInfos[6],
             vitesse : vehiculeInfos[7],
-            regime : vehiculeInfos[8]
+            regime : vehiculeInfos[8],
+            latitudeGPS : vehiculeInfos[9],
+            longitudeGPS : vehiculeInfos[10]
         });
     }
     createMarkers(vehicules);
@@ -79,7 +81,9 @@ function updateMapAjaxCallback(data) {
             distanceParcourue : vehiculeInfos[5],
             consommation : vehiculeInfos[6],
             vitesse : vehiculeInfos[7],
-            regime : vehiculeInfos[8]
+            regime : vehiculeInfos[8],
+            latitudeGPS : vehiculeInfos[9],
+            longitudeGPS : vehiculeInfos[10]
         });
     }
     updateMarkers(vehicules);
@@ -92,14 +96,25 @@ function createMarkers(vehicules) {
         var immat = vehicules[i]['immatriculation'];
         var mode = getLabel(vehicules[i]['mode']);
         var couleur = getColor(vehicules[i]['mode']);
+        
+        var lat = Math.round(parseFloat(vehicules[i]['latitudeGPS']));
+        var lg = Math.round(parseFloat(vehicules[i]['longitudeGPS']));
+        var latitude, longitude;
+        if ((lat == 0) && (lg == 0)) {
+            latitude = vehicules[i]['latitude'];
+            longitude = vehicules[i]['longitude'];
+        }
+        else {
+            latitude = vehicules[i]['latitudeGPS'];
+            longitude = vehicules[i]['longitudeGPS'];
+        }
         // on crée un marqueur
         var marker = new google.maps.Marker({
             icon: {
                 path: google.maps.SymbolPath.CIRCLE, scale: 12, 
                 fillOpacity: 1, fillColor: couleur, strokeColor: couleur
             },
-            position: new google.maps.LatLng(vehicules[i]['latitude'],
-                                             vehicules[i]['longitude']),
+            position: new google.maps.LatLng(latitude, longitude),
             map: map,
             title: immat,
             label: {text:label, color:"white", fontWeight:"bold", fontSize:"18px"}
@@ -118,9 +133,18 @@ function updateMarkers(vehicules) {
         var immat = vehicules[i]['immatriculation'];
         marker = findMarker(immat)['marqueur'];
         var couleur = getColor(vehicules[i]['mode']);
-        
-        marker.setPosition(new google.maps.LatLng(vehicules[i]['latitude'],
-                                             vehicules[i]['longitude']));
+        var lat = Math.round(parseFloat(vehicules[i]['latitudeGPS']));
+        var lg = Math.round(parseFloat(vehicules[i]['longitudeGPS']));
+        var latitude, longitude;
+        if ((lat == 0) && (lg == 0)) {
+            latitude = vehicule [i]['latitude'];
+            longitude = vehicule [i]['longitude'];
+        }
+        else {
+            latitude = vehicule [i]['latitudeGPS'];
+            longitude = vehicule [i]['longitudeGPS'];
+        }
+        marker.setPosition(new google.maps.LatLng(latitude, longitude));
         marker.setIcon({
                 path: google.maps.SymbolPath.CIRCLE, scale: 12, 
                 fillOpacity: 1, fillColor: couleur, strokeColor: couleur
@@ -275,3 +299,4 @@ function afficherTestVehicules(vehicules) {
     $("#test1").html(resultat);
 }
     
+
