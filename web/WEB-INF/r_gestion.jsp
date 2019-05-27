@@ -85,13 +85,12 @@
                                 <div class="ui-field-contain">
                                     <select name="Model" id="select-CLoueur">
                                         <option>Loueur</option>
-                                        <%                                            int index = 0;
+                                        <%int index = 0;
                                             for (Loueur l : listLoueurs) {
                                         %><option value="<% out.print(index++); %>">
                                             <%
-                                                    out.print(l.getPrenom() + " " + l.getNom());
-                                                }
-                                            %></option>
+                                                out.print(l.getPrenom() + " " + l.getNom());
+                                            }%></option>
                                     </select>
                                 </div>
                                 <div class="ui-field-contain">
@@ -129,12 +128,13 @@
                                 </form>
                                 <form data-theme="b" id="btn-popup">
                                     <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
-                                    <a href="CreateContrat" onclick="popupNvContrat.creerContrat()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Créer</a>
+                                    <a href="CreateContrat" onclick="popupNvContrat.creerContrat()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" 
+                                       data-rel="back" data-transition="flow" data-theme="b">Créer</a>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <%---- Tableau Contrat ----%> 
+                    <%---- Tableau Contrat ----%>
                     <table id="tabGestion" data-role="table" id="movie-table-custom" data-mode="reflow" class="table-stripe movie-list ui-responsive">
                         <thead>
                             <tr>
@@ -161,13 +161,12 @@
                                 out.print("<td>" + l.getNom());
                                 out.print("<td>" + v.getImmatriculation());
                                 out.print("<td>" + c.getZoneLimiteID());
-                                out.print("<td>"); %>
+                                out.print("<td>");%>
                             <%----  Btn de Modification dans le tableau Contrat  ---%>
-                        <div id="btnModifContrat<%out.print(c.getNumero());%>" class="ui-nodisc-icon"><!-- Class added to the wrapper -->
+                        <div id="btnModifContrat<%out.print(c.getNumero());%>" class="ui-nodisc-icon">
                             <%--- Btn de Modification du Contrat ---%>
-                            <a href="#btnContratEdit<%out.print(c.getNumero());%>" data-rel="popup" data-position-to="window" 
-                               class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-edit ui-btn-icon-left ui-btn-a" 
-                               data-transition="pop"></a>
+                            <a href="#btnContratEdit<%out.print(c.getNumero());%>" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-edit 
+                               ui-btn-icon-left ui-btn-a" data-transition="pop"></a>
                             <div data-role="popup" id="btnContratEdit<%out.print(c.getNumero());%>" data-theme="a" class="ui-corner-all" data-dismissible="false">
                                 <div style="padding:10px 20px;">
                                     <h3>Modification</h3>
@@ -187,16 +186,17 @@
                                     </div>
                                     <div class="ui-field-contain">
                                         <select name="ZoneLimite" id="select-ZoneLimite<%out.print(c.getNumero());%>">
-                                               <option>Zone Limite</option>
-                                               <option value="1">Zone 1</option>
-                                              <option value="2">Zone 2</option>
-                                               <option value="3">Zone 3</option>
+                                            <option>Zone Limite</option>
+                                            <option value="1">Zone 1</option>
+                                            <option value="2">Zone 2</option>
+                                            <option value="3">Zone 3</option>
                                         </select>
                                     </div>
                                     <label for="infos">Infos</label>
                                     <textarea name="infos" id="infos<%out.print(c.getNumero());%>"></textarea>
                                     <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
-                                    <a href="EditContrat" onclick="popupEditContrat.EditContrat('<%out.print(c.getNumero()); %>')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Modifier</a>
+                                    <a href="EditContrat" onclick="popupEditContrat.EditContrat('<%out.print(c.getNumero()); %>')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b"
+                                       data-rel="back" data-transition="flow" data-theme="b">Modifier</a>
                                 </div>
                             </div>
                             <%---- btn de Suppression de contrat-----%>
@@ -213,7 +213,8 @@
                                         <label for="Immatriculation" disabled="disabled"> Immatriculation: <% out.print(v.getImmatriculation());  %></label>
                                         <label for="Numero" disabled="disabled"> Numéro de Contrat : <%  out.print(c.getNumero()); %></label>
                                         <a href="#"  class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Non</a>
-                                        <a href="#" onclick="deleteData('<%out.print(c.getNumero());%>', 'contrat')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Oui</a>
+                                        <a href="#" onclick="deleteData('<%out.print(c.getNumero());%>', 'contrat')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" 
+                                           data-transition="flow" data-theme="b">Oui</a>
                                     </center>
                                 </div>
                             </div>
@@ -258,7 +259,8 @@
                                 <div class="ui-field-contain">
                                     <form data-theme="b" id="btn-popup">
                                         <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
-                                        <a href="CreateVehicule" onclick="popupNvVehicule.creerVehicule()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Créer</a> 
+                                        <a href="CreateVehicule" onclick="popupNvVehicule.creerVehicule()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" 
+                                           data-rel="back" data-transition="flow" data-theme="b">Créer</a> 
                                     </form>
                                 </div>
                             </div>
@@ -312,8 +314,11 @@
                                 out.print("<td>" + dtr.getDistanceParcourue() + " km");
                                 out.print("<td>");%>
                             <%---- btn de Suppression de véhicule-----%>
-                        <a href="#BtnSupprV<%out.print(v.getImmatriculation());%>" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-shadow 
-                           ui-btn-inline ui-icon-delete ui-btn-i ui-btn-icon-left ui-btn-b"></a>
+                        <a href="#BtnSupprV<%out.print(v.getImmatriculation());%>" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all
+                           ui-shadow ui-btn-inline 
+                           ui-icon-delete ui-btn-i 
+                           ui-btn-icon-left 
+                           ui-btn-b"></a>
                         <div data-role="popup" id="BtnSupprV<%out.print(v.getImmatriculation());%>" data-overlay-theme="b" data-theme="b" data-dismissible="false">
                             <div data-role="header" data-theme="b">
                                 <h1>Supprimer le véhicule ?</h1>
@@ -323,7 +328,8 @@
                                 <center>
                                     <label for="Immatriculation" disabled="disabled"> Immatriculation: <%out.print(v.getImmatriculation());%></label>
                                     <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Non</a>
-                                    <a href="#" onclick="deleteData('<%out.print(v.getImmatriculation());%>', 'vehicule')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Oui</a>
+                                    <a href="#" onclick="deleteData('<%out.print(v.getImmatriculation());%>', 'vehicule')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b"
+                                       data-rel="back" data-transition="flow" data-theme="b">Oui</a>
                                 </center>
                             </div>
                         </div>
@@ -343,10 +349,12 @@
                                     <input type="date" data-clear-btn="false" name="dateCT" id="dateCT<%out.print(v.getImmatriculation());%>" value="">
                                     <div class="ui-field-contain">
                                         <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
-                                        <a href="EditVehicule"  onclick="popupEditVehicule.EditVehicule('<%out.print(v.getImmatriculation());%>')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Modifier</a>
+                                        <a href="EditVehicule"  onclick="popupEditVehicule.EditVehicule('<%out.print(v.getImmatriculation());%>')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline 
+                                           ui-btn-b" data-rel="back" data-transition="flow"
+                                           data-theme="b">Modifier</a>
                                     </div>
                                 </div>
-                                <%}
+                                <% }
                                 %>
                                 </tbody>
                                 </table>
@@ -371,7 +379,8 @@
                                                     <input id="phone" type="number" pattern="[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]" placeholder="06.05.04.03.02">
                                                 </div>
                                                 <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
-                                                <a href="CreateLoueur" onclick="popupNvLoueur.creerLoueur()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Créer</a>
+                                                <a href="CreateLoueur" onclick="popupNvLoueur.creerLoueur()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back"
+                                                   data-transition="flow" data-theme="b">Créer</a>
                                             </div>
                                         </form>
                                     </div>
@@ -418,7 +427,8 @@
                                                     <input id="phone<%out.print(id);%>" type="number" pattern="[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]" placeholder="06.05.04.03.02">
                                                 </div>
                                                 <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Annuler</a>
-                                                <a href="EditLoueur" onclick="  popupEditLoueur.EditLoueur(<%out.print(id); %>)" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Modifier</a>
+                                                <a href="EditLoueur" onclick="  popupEditLoueur.EditLoueur(<%out.print(id); %>)" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back"
+                                                   data-transition="flow" data-theme="b">Modifier</a>
                                             </div>
                                         </div>
                                         <%---- btn de Suppression de Loueuer-----%>
@@ -437,13 +447,15 @@
                                                     <label for="NLoueur" disabled="disabled"> <% out.print(l.getNom()); %></label>
                                                     <label for="NumLoueur" disabled="disabled"> <% out.print(l.getID(con)); %></label>
                                                     <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-theme="b">Non</a>
-                                                    <a href="#" onclick="deleteData('<%out.print(l.getID(con));%>', 'loueur')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" data-theme="b">Oui</a>
+                                                    <a href="#" onclick="deleteData('<%out.print(l.getID(con));%>', 'loueur')" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" 
+                                                       data-transition="flow" data-theme="b">Oui</a>
                                                 </center>
                                             </div>
                                         </div>
                                         <%}
                                         %>
-                                        </tbody>
+                                    </div>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

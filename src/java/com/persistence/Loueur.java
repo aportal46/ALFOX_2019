@@ -61,6 +61,18 @@ public class Loueur {
         Statement lStat = con.createStatement();
         lStat.executeUpdate(queryString, Statement.NO_GENERATED_KEYS);
     }
+        public static ArrayList<Loueur> getList (Connection con) throws Exception {
+        String queryString = "select * from loueur";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        ArrayList<Loueur> contrats = new ArrayList<>();
+        while (lResult.next ()) {
+            contrats.add (creerParRequete (lResult));
+        }
+        return contrats;
+    }
     
     /**
      * Retourne un loueur trouve par son nom et prénom, saved is true
@@ -133,6 +145,19 @@ public class Loueur {
         String queryString = "delete from loueur"
             + " where Nom='" + nom + "'"
             + " and Prenom='" + prenom + "'";
+        Statement lStat = con.createStatement();
+        lStat.executeUpdate(queryString);
+        return true;
+    }
+    
+    /**
+     * suppression de l'objet loueur dans la BD
+     * @param con
+     * @return 
+     * @throws SQLException impossible d'accéder à la ConnexionMySQL
+     */
+    public static boolean delete(Connection con,String ID) throws Exception {
+        String queryString = "delete from loueur where ID='" + ID + "'";
         Statement lStat = con.createStatement();
         lStat.executeUpdate(queryString);
         return true;

@@ -109,6 +109,32 @@ public class Contrat {
     }
     
     /**
+     * suppression de l'objet contrat dans la BD
+     * @param con
+     * @return 
+     * @throws SQLException    impossible d'accéder à la ConnexionMySQL
+     */
+    public static boolean delete(Connection con,String numero) throws Exception {
+        String queryString = "delete from contrat where Numero='" + numero + "'";
+        Statement lStat = con.createStatement();
+        lStat.executeUpdate(queryString);
+        return true;
+    }
+        
+    public static ArrayList<Contrat> getList (Connection con) throws Exception {
+        String queryString = "select * from contrat";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        ArrayList<Contrat> contrats = new ArrayList<>();
+        while (lResult.next ()) {
+            contrats.add (creerParRequete (lResult));
+        }
+        return contrats;
+    }
+    
+    /**
      * Retourne un contrat trouve par son numero, saved is true
      * @param con
      * @param  numero le numero à trouver
@@ -128,6 +154,18 @@ public class Contrat {
         else
             return null;
     }
+    
+    public static int getLastID (Connection con) throws Exception {
+        String queryString = "select ID from contrat order by ID desc limit 1";
+        Statement lStat = con.createStatement(
+                               ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                               ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery (queryString);
+        if (lResult.next ()) {
+            return lResult.getInt("ID");
+        }
+        return 0;
+    } 
     
     /**
      * Retourne un contrat trouve par son numero, saved is true

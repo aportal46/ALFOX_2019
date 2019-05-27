@@ -217,6 +217,7 @@ const popupEditVehicule = {
 
 const popupEditLoueur = {
     EditLoueur (id) {
+        const that = this;
         $.ajax({
             url: 'alfoxControl.jsp?action=r_EditSection',
             type: 'POST',

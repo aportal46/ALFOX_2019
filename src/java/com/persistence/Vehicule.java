@@ -124,6 +124,32 @@ public class Vehicule {
         return true;
     }
     
+    /**
+     * suppression de l'objet vehicule dans la BD
+     *
+     * @param con
+     * @return
+     * @throws SQLException impossible d'accéder à la ConnexionMySQL
+     */
+    public static boolean delete(Connection con,String immatriculation) throws Exception {
+        String queryString = "delete from vehicule where Immatriculation='" + immatriculation + "'";
+        Statement lStat = con.createStatement();
+        lStat.executeUpdate(queryString);
+        return true;
+    }
+    
+        public static ArrayList<Vehicule> getList (Connection con) throws Exception {
+        String queryString = "select * from vehicule";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        ArrayList<Vehicule> vehicules = new ArrayList<>();
+        while (lResult.next ()) {
+            vehicules.add (creerParRequete (lResult));
+        }
+        return vehicules;
+    }
     public static ArrayList<String> getImmatriculations(Connection con) throws Exception {
         String queryString = "select Immatriculation from vehicule"
                                 + " order by Immatriculation";
