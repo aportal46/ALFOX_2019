@@ -351,6 +351,24 @@ public class DonneesTR {
         lStat = con.createStatement();
         lStat.executeUpdate(queryString, Statement.NO_GENERATED_KEYS);
     }
+    
+    
+     public static DonneesTR getBylastDateVehiculeID(Connection con,
+              int vehiculeid) throws Exception {
+        String queryString = "select * from donneesTR"
+            + " where VehiculeID='" + vehiculeid 
+            + "' order by Datation desc limit 1,1;";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        if (lResult.next()) {
+            return creerParRequete(lResult);
+        }
+        else
+            return null;
+    }
 
     /**
      * Sauvegarde des datas du message Sigfox DATA
@@ -376,6 +394,8 @@ public class DonneesTR {
             return "ERREUR";
         }
         int vehiculeID = boitier.getVehiculeID();
+        DonneesTR donneesTR = DonneesTR.getBylastDateVehiculeID(con, vehiculeID);
+        
         // conversion de la chaine hexa en tableau de byte
         HexBinaryAdapter adapter = new HexBinaryAdapter();
         byte[] bData = adapter.unmarshal(data);

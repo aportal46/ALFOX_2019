@@ -408,4 +408,15 @@ public class DonneesTRTest {
         ArrayList<DonneesTR> donneesTR = DonneesTR.getByVehiculeID(con, 1);
         assertEquals("NORMAL", donneesTR.get(0).getMode());
     }
+    
+    /**
+     * Test of getBylastDate method, of class DonneesTR.
+     */
+    @Test
+    public void testGetBylastDateVehiculeID() throws Exception {
+        System.out.println("GetBylastDateVehiculeID");
+        Connection con = ConnexionMySQL.newConnexion();
+        DonneesTR result = DonneesTR.getBylastDateVehiculeID(con, 8);
+        assertEquals(46.689783, result.getLatitude(), 0.00001 ); 
+    }
 }
