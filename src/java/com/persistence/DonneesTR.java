@@ -259,6 +259,13 @@ public class DonneesTR {
         }
         else {  // si il n'existe pas encore, on le crée
             if (mode.equals("NORMAL")) {
+                    DonneesTR donneesTR = DonneesTR.getBylastDateVehiculeID(con, vehiculeID);
+                    latitude=donneesTR.getLatitude();
+                    longitude=donneesTR.getLongitude();
+                    
+                    DonneesTR donneesTRGPS = DonneesTR.getBylastDateVehiculeID(con, vehiculeID);
+                    latitudeGPS=donneesTRGPS.getLatitudeGPS();
+                    longitudeGPS=donneesTRGPS.getLongitudeGPS();
                 // datas véhicule et kilométrage
                 // NORMAL : TM K1 K2 K3 CD CD VX VM RX RM CX CM
                 queryString =
@@ -266,7 +273,7 @@ public class DonneesTR {
                     + " Vitesse, Regime, Consommation,"
                     + " VitesseMax, RegimeMax, ConsoMax,"
                     + " NbDefauts, Defaut1, Defaut2, Defaut3, Defaut4,"
-                    + " Snr, Rssi, AvgSnr, Radius, Latitude, Longitude,"
+                    + " Snr, Rssi, AvgSnr, Radius, LatitudeGPS, LongitudeGPS, Latitude, Longitude,"
                     + " DistanceParcourue, VehiculeID)"
                     + " values ("
                     + Utils.toString(mode) + ", "
@@ -285,7 +292,11 @@ public class DonneesTR {
                     + Utils.toString(defaut3) + ", "
                     + Utils.toString(defaut4) + ", "
                     // pas d'infos sur le signal, ni sur la position
-                    + " NULL, NULL, NULL, NULL, NULL, NULL, "
+                    + " NULL, NULL, NULL, NULL, "
+                    + latitudeGPS + ", "
+                    + longitudeGPS + ", "    
+                    + latitude + ", "
+                    + longitude + ", "   
                     // autres datas
                     + Utils.toString(distanceParcourue) + ", "
                     + Utils.toString(vehiculeID)
