@@ -115,8 +115,30 @@ public class DonneesTR {
      * @throws java.lang.Exception
      */
     public static DonneesTR getByID(Connection con, int id) throws Exception {
-        String queryString = "select * from contrat"
+        String queryString = "select * from donneesTR"
             + " where ID='" + id + "';";
+        Statement lStat = con.createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                ResultSet.CONCUR_READ_ONLY);
+        ResultSet lResult = lStat.executeQuery(queryString);
+        // y en a t'il au moins un ?
+        if (lResult.next()) {
+            return creerParRequete(lResult);
+        }
+        else
+            return null;
+    }
+    
+    /**
+     * Retourne un loueur trouve par son nom et prénom, saved is true
+     * @param con
+     * @param  seqNumber
+     * @return DonneesTR trouvé par id
+     * @throws java.lang.Exception
+     */
+    public static DonneesTR getBySeqNumber(Connection con, int seqNumber) throws Exception {
+        String queryString = "select * from donneesTR"
+            + " where SeqNumber='" + seqNumber + "';";
         Statement lStat = con.createStatement(
                                 ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                 ResultSet.CONCUR_READ_ONLY);
@@ -166,13 +188,7 @@ public class DonneesTR {
         lStat.executeUpdate(queryString);
         return true;
     }
-        
-    public static boolean delete(Connection con,String vehiculeID) throws Exception{
-        String queryString = "delete from donneesTR where VehiculeID ='"+ vehiculeID+"';";
-        Statement lStat = con.createStatement();
-        lStat.executeUpdate(queryString);
-        return true;
-    }
+
     /**
      * update de l'objet donneesTR dans la ConnexionMySQL
      *
@@ -352,12 +368,11 @@ public class DonneesTR {
         lStat.executeUpdate(queryString, Statement.NO_GENERATED_KEYS);
     }
     
-    
-     public static DonneesTR getBylastDateVehiculeID(Connection con,
+    public static DonneesTR getBylastDateVehiculeID(Connection con,
               int vehiculeid) throws Exception {
         String queryString = "select * from donneesTR"
             + " where VehiculeID='" + vehiculeid 
-            + "' order by Datation desc limit 1,1;";
+            + "' order by Datation desc limit 1;";
         Statement lStat = con.createStatement(
                                 ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                 ResultSet.CONCUR_READ_ONLY);
@@ -388,6 +403,7 @@ public class DonneesTR {
         long distanceParcourue = 0L;
         double latitudeGPS = 0, longitudeGPS = 0;
         double latitude = 0, longitude = 0;
+        
         Boitier boitier = Boitier.getByID(con, sigfoxID);
         if (boitier == null) {
             // le boitier n'existe pas ???
@@ -395,6 +411,8 @@ public class DonneesTR {
         }
         int vehiculeID = boitier.getVehiculeID();
         DonneesTR donneesTR = DonneesTR.getBylastDateVehiculeID(con, vehiculeID);
+        latitude=donneesTR.getLatitude();
+        longitude=donneesTR.getLongitude();
         
         // conversion de la chaine hexa en tableau de byte
         HexBinaryAdapter adapter = new HexBinaryAdapter();
@@ -427,8 +445,8 @@ public class DonneesTR {
             vitesseMoy = bData[7];
             if (vitesseMoy < 0) {
                 vitesseMoy = 256 + vitesseMoy;
-            }
-            regimeMax = bData[8] * 100;
+            }   
+            regimeMax = bData[8] * 100;  
             regimeMoy = bData[9] * 100;
             consoMax = bData[10];
             if (consoMax < 0) {
@@ -595,7 +613,7 @@ public class DonneesTR {
         }
         return lstDonneesTR;
     }
-
+     
     private static DonneesTR creerParRequete(ResultSet result) throws Exception {
         String lMode = result.getString("Mode");
         int lSeqNumber = result.getInt("SeqNumber");

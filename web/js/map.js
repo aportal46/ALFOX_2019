@@ -137,12 +137,12 @@ function updateMarkers(vehicules) {
         var lg = Math.round(parseFloat(vehicules[i]['longitudeGPS']));
         var latitude, longitude;
         if ((lat == 0) && (lg == 0)) {
-            latitude = vehicules [i]['latitude'];
-            longitude = vehicules [i]['longitude'];
+            latitude = vehicule [i]['latitude'];
+            longitude = vehicule [i]['longitude'];
         }
         else {
-            latitude = vehicules [i]['latitudeGPS'];
-            longitude = vehicules [i]['longitudeGPS'];
+            latitude = vehicule [i]['latitudeGPS'];
+            longitude = vehicule [i]['longitudeGPS'];
         }
         marker.setPosition(new google.maps.LatLng(latitude, longitude));
         marker.setIcon({

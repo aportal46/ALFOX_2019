@@ -24,6 +24,22 @@ import org.junit.BeforeClass;
  */
 public class DonneesTRTest {
 
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
     /**
      * Test of create method, of class DonneesTR.
      * @throws java.lang.Exception
@@ -408,7 +424,39 @@ public class DonneesTRTest {
         ArrayList<DonneesTR> donneesTR = DonneesTR.getByVehiculeID(con, 1);
         assertEquals("NORMAL", donneesTR.get(0).getMode());
     }
-    
+
+    /**
+     * Test of saveData method, of class DonneesTR.
+     */
+    @Test
+    public void testSaveData() throws Exception {
+        System.out.println("saveData");
+        Connection con = ConnexionMySQL.newConnexion();
+        String sigfoxID = "1D2289";
+        int seqNumber = 600;
+        Timestamp datation = Utils.stringToTimestamp("2019/05/13 12:00:00");
+        String data ="c10c22380000504c50553422";
+        DonneesTR.saveData(con, sigfoxID, seqNumber,
+            datation, data);
+        DonneesTR instance = DonneesTR.getBySeqNumber(con, 600);
+        assertEquals(123456, instance.getDistanceParcourue());
+        instance.delete(con);
+        assertEquals(0, instance.getNbDefauts());
+        instance.delete(con);
+        assertEquals(80, instance.getVitesseMax());
+        instance.delete(con);
+        assertEquals(76, instance.getVitesse());
+        instance.delete(con);
+        assertEquals(8000, instance.getRegimeMax());
+        instance.delete(con);
+        assertEquals(8500, instance.getRegime());
+        instance.delete(con);
+        assertEquals(5, instance.getConsoMax());
+        instance.delete(con);
+        assertEquals(3, instance.getConsommation());
+        instance.delete(con);
+    }
+
     /**
      * Test of getBylastDate method, of class DonneesTR.
      */
