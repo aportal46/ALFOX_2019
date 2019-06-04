@@ -30,6 +30,13 @@ public class MessageManager {
     // message a envoyer
     private static String msg = ""; 
     
+    /*
+     * param 1 msg : message a envoyé, 8 octets sous la forme hexadecimale 
+     * Cette méthode est appeler pour une demande d'envoie d'un message 
+     * descendant.
+     * Elle retourne un boolean qui signifit si la demande est oui ou non
+     * prise en compte.
+     */
     public static boolean demandEnvoye (String msg) {
         if (msgAEnvoyer) return false;
         if (nbrMsgEnv < NBR_MSG_MAX) {
@@ -53,16 +60,32 @@ public class MessageManager {
         else return false;
     }
     
+    /*
+     * Cette méthode retourne le nombre de message envoyé, ce nombre peut
+     * être compris entre 0 et 4
+     */
     public static int getNbrMsgEnv () {
         return nbrMsgEnv;
     }
     
+    /*
+     * Cette méthode permet de savoir si un message est en cours
+     * d'attente d'envoie
+     */
     public static boolean isWaiting () {
         return msgAEnvoyer;
     }
     
+    /*
+     * Cette méthode renvoie le message qui est en attente, une fois cette 
+     * méthode appeler, il est désormé possible de faire une nouvelle 
+     * demande d'envoie.
+     * Si seulement durant la journée, il y a eu moins de 4 envoies de message
+     * descendant.
+     */
     public static String getMsg () {
         msgAEnvoyer = false;
         return msg;
     }
+    
 }
