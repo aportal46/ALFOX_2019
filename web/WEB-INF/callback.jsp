@@ -106,12 +106,19 @@ format, up to 8 digits. The downlink data must be 8 bytes in hexadecimal format.
         String mode = DonneesTR.saveData(con,sigfoxID,seqNumber,datation,data);
         
         // downlink message
-        String ack = request.getParameter("ack");
-        if ((ack != null) && (ack.equals("true"))) {
-            if (mode.equals("NORMAL"))
-                out.print("{ \"" + sigfoxID + "\" : {\"downlinkData\" : \"0102030405060708\" }}");
-            else
-                out.print("{ \"" + sigfoxID + "\" : {\"noData\" : true }}");
+        /*
+        if (mode.equals ("NORMAL") || mode.equals ("DEGRADE")) 
+            out.print ("{ \"" + sigfoxID + "\" : {\"downlinkdata\" : \"3004000000000000\" }}");
+        else if (mode.equals ("GPS"))
+            out.print ("{ \"" + sigfoxID + "\" : {\"downlinkData\" : \"3000000000000000\" }}");
+        else
+            out.print ("{ \"" + sigfoxID + "\" : {\"noData\" : true}}");
+        */
+        if (MessageManager.isWaiting()) {
+            out.print ("{ \"" + sigfoxID + "\" : {\"downlinkData\" : \"" + MessageManager.getMsg () + "\" }}");
+        }
+        else {
+            out.print ("{ \"" + sigfoxID + "\" : {\"noData\" : true }}");
         }
         // sinon rien
     }
