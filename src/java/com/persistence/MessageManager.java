@@ -39,18 +39,11 @@ public class MessageManager {
     public static enum DmdMode {MODE_STANDARD, DMD_GPS, MODE_GPS, MODE_EC0,
                                     MODE_MAINTENANCE, MODE_RESET, MODE_SLEEP, MODE_DATA, RIEN}; 
     
-    private static String nouveauMode(int mode) {
+    public static String nouveauMode(int mode) {
         byte[] bMsg = {0,0,0,0,0,0,0,0};
         bMsg[0] = (byte) NV_MODE;
         bMsg[1] = (byte)mode;
         return new String(bMsg);
-    }
-    
-    public static void demandeDeMode (int mode) {
-        String msg = MessageManager.nouveauMode (mode);
-        if (!MessageManager.demandEnvoye (msg)) {
-            // .. error
-        }
     }
     
     /*
