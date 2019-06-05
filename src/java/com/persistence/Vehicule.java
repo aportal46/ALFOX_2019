@@ -131,8 +131,8 @@ public class Vehicule {
      * @return
      * @throws SQLException impossible d'accéder à la ConnexionMySQL
      */
-    public static boolean delete(Connection con,String immatriculation) throws Exception {
-        String queryString = "delete from vehicule where Immatriculation='" + immatriculation + "'";
+    public static boolean delete(Connection con,String id) throws Exception {
+        String queryString = "DELETE FROM alfox.vehicule WHERE `ID` = " + id +";";
         Statement lStat = con.createStatement();
         lStat.executeUpdate(queryString);
         return true;

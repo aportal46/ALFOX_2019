@@ -144,6 +144,14 @@
                             <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>
+                    <a href="#positionWindow4" class="ui-btn ui-btn-a ui-icon-arrow-r ui-btn-icon-left ui-shadow ui-corner-all" data-rel="popup" data-position-to="window">
+                        <h4>NORMAL</h4>
+                        <div data-role="popup" id="positionWindow4" class="ui-content">
+                            <p align="center">Etes-vous sûr de vouloir passer en mode NORMAL ?</p>
+                            <button class="ok" style="width: 200px">OK</button>
+                            <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
+                        </div>
+                    </a>
                 </div>
             </div>
             <%@include file="/includes/footer.jspf"%>

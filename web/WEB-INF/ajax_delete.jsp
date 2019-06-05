@@ -26,12 +26,25 @@
     }
     else if(type.equals("vehicule")){
         Vehicule vehicule = Vehicule.getByImmatriculation(con, id);
-        String idVehicule = Integer.toString(vehicule.getID(con));  
-        DonneesTR.delete(con, idVehicule);
-        DonneesHisto.delete(con, idVehicule);
-        Vehicule.delete(con, id);
+        String idVehicule = Integer.toString(vehicule.getID(con)); 
+        Contrat contrat = Contrat.getByID(con, vehicule.getID(con));
+        if(contrat == null){
+            DonneesTR.delete(con, idVehicule);
+            DonneesHisto.delete(con, idVehicule);
+            Vehicule.delete(con, id);
+        }
+        else if(contrat != null){
+            
+        }
     }
     else if(type.equals("loueur")){
-        Loueur.delete(con, id);
+        Loueur loueur = Loueur.getById(con, id);
+        Contrat contrat = Contrat.getByID(con,loueur.getID(con));
+        if(contrat == null){
+            Loueur.delete(con, id);
+        }
+        else if(contrat != null){
+            
+        }
     }
 %>
