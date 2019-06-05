@@ -42,8 +42,11 @@ public class MessageManager {
     public static String nouveauMode(int mode) {
         byte[] bMsg = {0,0,0,0,0,0,0,0};
         bMsg[0] = (byte) NV_MODE;
-        bMsg[1] = (byte)mode;
-        return new String(bMsg);
+        bMsg[1] = (byte)mode;    
+        StringBuilder sb = new StringBuilder (); 
+        for (int i = 0; i < 8; i++)
+            sb.append (String.format ("%02x", bMsg [i]));
+        return sb.toString ();
     }
     
     /*
