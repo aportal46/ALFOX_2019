@@ -11,6 +11,7 @@
 <%@page import="com.persistence.DonneesTR"%>
 <%@page import="com.persistence.ConnexionMySQL"%>
 <%@page import="java.sql.Connection"%>
+<script type="text/javascript" src="js/infos.js"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -116,7 +117,7 @@
                         <h4>DORMIR</h4>
                         <div data-role="popup" id="positionWindow" class="ui-content">
                             <p align="center">Etes-vous sûr de vouloir passer en mode DORMIR ?</p>
-                                <button class="ok" style="width: 200px">OK</button>
+                            <button class="ok" style="width: 200px" onclick="changeMode('DORMIR')">OK</button>
                                 <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>
@@ -124,7 +125,7 @@
                         <h4>GPS</h4>
                         <div data-role="popup" id="positionWindow1" class="ui-content">
                             <p align="center">Etes-vous sûr de vouloir passer en mode GPS ?</p>
-                            <button class="ok" style="width: 200px">OK</button>
+                            <button class="ok" style="width: 200px" onclick="changeMode('GPS')">OK</button>
                             <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>
@@ -132,7 +133,7 @@
                         <h4>Demande GPS</h4>
                         <div data-role="popup" id="positionWindow2" class="ui-content">
                             <p align="center">Etes-vous sûr de vouloir passer en mode Demande GPS ?</p>
-                            <button class="ok" style="width: 200px">OK</button>
+                            <button class="ok" style="width: 200px" onclick="changeMode('DemandeGPS')">OK</button>
                             <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>
@@ -140,7 +141,7 @@
                         <h4>RESET</h4>
                         <div data-role="popup" id="positionWindow3" class="ui-content">
                             <p align="center">Etes-vous sûr de vouloir passer en mode RESET ?</p>
-                            <button class="ok" style="width: 200px">OK</button>
+                            <button class="ok" style="width: 200px" onclick="changeMode('RESET')">OK</button>
                             <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>
@@ -148,7 +149,7 @@
                         <h4>NORMAL</h4>
                         <div data-role="popup" id="positionWindow4" class="ui-content">
                             <p align="center">Etes-vous sûr de vouloir passer en mode NORMAL ?</p>
-                            <button class="ok" style="width: 200px">OK</button>
+                            <button class="ok" style="width: 200px" onclick="changeMode('NORMAL')">OK</button>
                             <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>
