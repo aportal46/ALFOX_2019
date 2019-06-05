@@ -74,6 +74,8 @@
                     request.getRequestDispatcher("WEB-INF/ajax_delete.jsp").forward(request, response);
                 } else if (action.equals("r_creerSection")) {
                     request.getRequestDispatcher("WEB-INF/ajax_creerSection.jsp").forward(request, response);
+                } else if (action.equals("r_modeBoitier")) {
+                    request.getRequestDispatcher("WEB-INF/ajax_ModeBoitier.jsp").forward(request, response);
                 } else if (action.equals("logout")) {
                     session.invalidate();   // fermeture de la session (plus de user ni de connexion)
                     request.getRequestDispatcher("index.jsp").forward(request, response);
