@@ -48,6 +48,7 @@
                     Vehicule vehicule =  Vehicule.getByImmatriculation(con, immatriculations.get(0));
                     DonneesTR dtr = DonneesTR.getLastByImmatriculation(con, vehicule.getImmatriculation());
                     out.print("Mode : " + dtr.getMode());
+                    String acType = dtr.getMode();
                     Timestamp date = DonneesTR.getLastByImmatriculation(con, vehicule.getImmatriculation()).getDatation();
                 %>
                 </p>
@@ -115,25 +116,25 @@
                 <div data-role="collapsibleset" data-inset="false">
                     <a href="#positionWindow" class="ui-btn ui-btn-a ui-icon-arrow-r ui-btn-icon-left ui-shadow ui-corner-all" data-rel="popup" data-position-to="window">
                         <h4>DORMIR</h4>
-                        <div data-role="popup" id="positionWindow" class="ui-content">
+                        <div data-role="popup" id="positionWindow" data-dismissible="false" class="ui-content">
                             <p align="center">Etes-vous sûr de vouloir passer en mode DORMIR ?</p>
-                            <button class="ok" style="width: 200px" onclick="changeMode('DORMIR')">OK</button>
-                                <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
+                            <button class="ok" style="width: 200px" onclick="changeMode('DORMIR','<%out.print (acType); %>')">OK</button>
+                            <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>
                     <a href="#positionWindow1" class="ui-btn ui-btn-a ui-icon-arrow-r ui-btn-icon-left ui-shadow ui-corner-all" data-rel="popup" data-position-to="window">
                         <h4>GPS</h4>
                         <div data-role="popup" id="positionWindow1" class="ui-content">
                             <p align="center">Etes-vous sûr de vouloir passer en mode GPS ?</p>
-                            <button class="ok" style="width: 200px" onclick="changeMode('GPS')">OK</button>
-                            <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
+                            <button class="ok" style="width: 200px" onclick="changeMode('GPS','<%out.print (acType); %>')">OK</button>
+                            <button class="annuler" data-rel="back" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>
                     <a href="#positionWindow2" class="ui-btn ui-btn-a ui-icon-arrow-r ui-btn-icon-left ui-shadow ui-corner-all" data-rel="popup" data-position-to="window">
                         <h4>Demande GPS</h4>
                         <div data-role="popup" id="positionWindow2" class="ui-content">
                             <p align="center">Etes-vous sûr de vouloir passer en mode Demande GPS ?</p>
-                            <button class="ok" style="width: 200px" onclick="changeMode('DemandeGPS')">OK</button>
+                            <button href="#" class="ok" style="width: 200px" onclick="changeMode('DemandeGPS','<%out.print (acType); %>')">OK</button>
                             <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>
@@ -141,7 +142,7 @@
                         <h4>RESET</h4>
                         <div data-role="popup" id="positionWindow3" class="ui-content">
                             <p align="center">Etes-vous sûr de vouloir passer en mode RESET ?</p>
-                            <button class="ok" style="width: 200px" onclick="changeMode('RESET')">OK</button>
+                            <button href="#" class="ok" style="width: 200px" onclick="changeMode('RESET','<%out.print (acType); %>')">OK</button>
                             <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>
@@ -149,7 +150,7 @@
                         <h4>NORMAL</h4>
                         <div data-role="popup" id="positionWindow4" class="ui-content">
                             <p align="center">Etes-vous sûr de vouloir passer en mode NORMAL ?</p>
-                            <button class="ok" style="width: 200px" onclick="changeMode('NORMAL')">OK</button>
+                            <button href="#" class="ok" style="width: 200px" onclick="changeMode('NORMAL'),window.location.href='alfoxControl.jsp?action=infos'">OK</button>
                             <button class="annuler" style="width: 200px" onclick="window.location.href='alfoxControl.jsp?action=infos'">Annuler</button>
                         </div>
                     </a>

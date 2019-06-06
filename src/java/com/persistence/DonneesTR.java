@@ -189,7 +189,7 @@ public class DonneesTR {
         return true;
     }
      public static boolean delete(Connection con, String VehiculeID) throws Exception {
-        String queryString = "delete from donneesHisto where VehiculeID = " + VehiculeID ;
+        String queryString = "delete from donneestr where VehiculeID = '" + VehiculeID +"';" ;
         Statement lStat = con.createStatement();
         lStat.executeUpdate(queryString);
         return true;

@@ -195,18 +195,18 @@ public class Contrat {
      * @return Contrat contrat trouve par numero
      * @throws java.lang.Exception
      */
-    public static ArrayList<Contrat> getByLoueurID(Connection con, int loueurID) throws Exception {
-        ArrayList<Contrat> lesContrats = new ArrayList<>();
+    public static Contrat getByLoueurID(Connection con, int loueurID) throws Exception {
         String queryString = "select * from contrat where LoueurID='" + loueurID + "'";
         Statement lStat = con.createStatement(
                                 ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                 ResultSet.CONCUR_READ_ONLY);
         ResultSet lResult = lStat.executeQuery(queryString);
         // y en a t'il au moins un ?
-        while (lResult.next()) {
-             lesContrats.add(creerParRequete(lResult));
+        if (lResult.next()) {
+            return creerParRequete(lResult);
         }
-        return lesContrats;
+        else
+            return null;
     }
     
     /**

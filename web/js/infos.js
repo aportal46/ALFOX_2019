@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function changeMode (type) {
+function changeMode (type,acType) {
     $.ajax({
         url: 'alfoxControl.jsp?action=r_modeBoitier',
         type: 'POST',
         data: {
-            type: type
+            type: type,
+            acType: acType
         },
         dataType: 'html',
         success: function (data) {

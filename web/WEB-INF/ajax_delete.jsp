@@ -21,30 +21,28 @@
     String id = request.getParameter("id");
     String type = request.getParameter("type"); 
     
-    if (type.equals("contrat")) {
+    if(type.equals("contrat")){
         Contrat.delete(con, id);
     }
     else if(type.equals("vehicule")){
         Vehicule vehicule = Vehicule.getByImmatriculation(con, id);
-        String idVehicule = Integer.toString(vehicule.getID(con)); 
-        Contrat contrat = Contrat.getByID(con, vehicule.getID(con));
+        Contrat contrat = Contrat.getByVehiculeID(con, vehicule.getID(con));
+        String vehiculeID = Integer.toString(vehicule.getID(con));
         if(contrat == null){
-            DonneesTR.delete(con, idVehicule);
-            DonneesHisto.delete(con, idVehicule);
+            DonneesHisto.delete(con, vehiculeID);
+            DonneesTR.delete(con, vehiculeID);
             Vehicule.delete(con, id);
+        }else{
+            out.print("le vehicule à un contrat");
         }
-        else if(contrat != null){
-            
-        }
-    }
-    else if(type.equals("loueur")){
-        Loueur loueur = Loueur.getById(con, id);
-        Contrat contrat = Contrat.getByID(con,loueur.getID(con));
+    }else if(type.equals("loueur")){
+        Contrat contrat = Contrat.getByLoueurID(con, Integer.parseInt(id));
         if(contrat == null){
             Loueur.delete(con, id);
-        }
-        else if(contrat != null){
-            
-        }
+        }else{ 
+            out.print("le loueur à un contrat");
+        }        
+    }else{
+        out.print("end");
     }
 %>

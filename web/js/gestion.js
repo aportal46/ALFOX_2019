@@ -234,7 +234,6 @@ const popupEditLoueur = {
     }
 };
 
-
 window.onload = _ => {
     popupNvContrat.init();
     popupNvVehicule.init();
