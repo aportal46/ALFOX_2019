@@ -16,23 +16,24 @@
         con = ConnexionMySQL.newConnexion();
     session.setAttribute("con", con);
     
-    // retourne par Ajax l'ID du contrat concerné
-    String type = request.getParameter("type"); 
+    // retourne par Ajax les types actuelles et demandés
+    String acType = request.getParameter("acType");
+    String type = request.getParameter("type");
     String msg = "";
     
-    if (type.equals("DORMIR")) {
+    if (type == "DORMIR" && acType != type){
        msg = MessageManager.nouveauMode(6);
     }
-    else if(type.equals("GPS")){
+    else if(type == "GPS" && acType != type){
         msg = MessageManager.nouveauMode(3);
     }
-    else if(type.equals("DemandeGPS")){
+    else if(type == "DemandeGPS" && acType != type){
         msg = MessageManager.nouveauMode(2);
     }
-    else if(type.equals("RESET")){
+    else if(type == "RESET" && acType != type){
         msg = MessageManager.nouveauMode(5);
     }
-    else if(type.equals("NORMAL")){
+    else if(type == "NORMAL" && acType != type){
        msg = MessageManager.nouveauMode(0);
     }
     
